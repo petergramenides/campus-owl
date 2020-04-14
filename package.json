@@ -1,0 +1,16 @@
+{
+  "name": "team8-websys",
+  "description": "websys final project backend",
+  "license": "MIT",
+  "version": "1.0.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/petergramenides/websys-backend"
+  },
+  "dependencies": {
+    "express": "expressjs/express",
+    "body-parser": "^1.19.0",
+    "file-system": "^2.2.2",
+    "mongodb": "^3.5.5"
+  }
+}
