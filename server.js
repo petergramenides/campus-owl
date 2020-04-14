@@ -13,6 +13,89 @@ const database_name = "rpi_media";
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
 
+// edits a comment
+app.get('/api/account/comments/edit', function(request, response)
+{
+
+});
+
+
+// deletes a comments
+app.get('/api/account/comments/delete', function(request, response)
+{
+
+});
+
+// adds a comment
+app.get('/api/account/comments/add', function(request, response)
+{
+
+});
+
+// edits a post
+app.get('/api/account/posts/edit', function(request, response)
+{
+
+});
+
+
+// deletes a post
+app.get('/api/account/posts/delete', function(request, response)
+{
+
+});
+
+// adds a post
+app.get('/api/account/posts/add', function(request, response)
+{
+
+});
+
+// gets all the posts
+app.get('/api/account/posts', function(request, response)
+{
+
+});
+
+// deletes a friend
+app.get('/api/account/friends/delete', function(request, response)
+{
+
+});
+
+// adds a friend
+app.get('/api/account/friends/add', function(request, response)
+{
+
+});
+
+// gets all the friends
+app.get('/api/account/friends', function(request, response)
+{
+
+});
+
+// gets all the account information
+app.get('/api/account', function(request, response)
+{
+
+});
+
+// deletes the account given the username, password, and
+// the word "delete"
+app.get('/api/account/delete', function(request, response)
+{
+
+});
+
+// gets username, old password, new password and changes the password
+// MAKE SURE THE OLD PASSWORD IS NOT THE SAME AS THE NEW PASSWORD
+app.get('/api/account/change/password', function(request, response)
+{
+
+});
+
+// creates a new account, TODO: check if account/email already exists
 app.get('/api/account/create', function(request, response)
 {
 	console.log("Creating new account.");
@@ -36,7 +119,6 @@ app.get('/api/account/create', function(request, response)
 	    bcrypt.hash(password, salt, function(error, hash) {
 	    	var data = 
 	    	{
-	    		"uuid": uuidv4(),
 	    		"username": username,
 	    		"password": hash,
 	    		"email": email,
@@ -44,7 +126,6 @@ app.get('/api/account/create', function(request, response)
 	    		"last_name": last_name,
 	    		"birthday": birthday,
 	    		"posts": [],
-	    		"likes": [],
 	    		"comments": [],
 	    		"friends": []
 	    	}
