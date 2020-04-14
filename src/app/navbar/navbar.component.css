@@ -1,0 +1,17 @@
+nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    background-color: #d21919;
+    color: white;
+    font-weight: 600;
+    width: 100%;
+}
+
+.navbar-fixed img {
+    margin: 0 16px;
+}
