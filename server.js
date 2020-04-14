@@ -125,9 +125,9 @@ app.get('/api/account/create', function(request, response)
 	    		"first_name": first_name,
 	    		"last_name": last_name,
 	    		"birthday": birthday,
-	    		"posts": [],
-	    		"comments": [],
-	    		"friends": []
+	    		"posts": {},
+	    		"comments": {},
+	    		"friends": {}
 	    	}
 	    	collection.insertOne(data, (error, result) => {
 		        if(error) {
