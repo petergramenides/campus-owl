@@ -22,20 +22,3 @@ header, main, footer {
     }
 }
 
-.filter{
-    font-weight: 600;
-}
-
-.mat-raised-button{
-    background-color: white;
-}
-
-mat-card {
-    background-color: white;
-    color: black;
-    border: black;
-}
-
-a {
-    color: black;
-  }

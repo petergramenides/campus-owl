@@ -12,6 +12,10 @@ nav {
     width: 100%;
 }
 
-.navbar-fixed img {
-    margin: 0 16px;
+img {
+    margin: 2% 16px;
+}
+
+span{
+    margin: 0 auto;
 }

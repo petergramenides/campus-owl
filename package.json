@@ -22,7 +22,7 @@
     "rxjs": "^6.5.5",
     "tslib": "^1.10.0",
     "zone.js": "^0.10.3",
-    "express": "expressjs/express",
+    "express": "^4.17.1",
     "body-parser": "^1.19.0",
     "file-system": "^2.2.2",
     "mongodb": "^3.5.5",
