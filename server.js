@@ -13,6 +13,42 @@ const database_name = "rpi_media";
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
 
+// logs out the user with session
+app.get('/api/account/logout', function(request, response)
+{
+
+});
+
+// logs in the user with session
+app.get('/api/account/login', function(request, response)
+{
+
+});
+
+// removes a like to a post
+app.get('/api/account/likes/delete', function(request, response)
+{
+
+});
+
+// adds a like to a post
+app.get('/api/account/likes/add', function(request, response)
+{
+
+});
+
+// returns all likes
+app.get('/api/account/likes', function(request, response)
+{
+
+});
+
+// returns all comments
+app.get('/api/account/comments', function(request, response)
+{
+
+});
+
 // edits a comment
 app.get('/api/account/comments/edit', function(request, response)
 {
@@ -115,9 +151,31 @@ app.get('/api/account/create', function(request, response)
 		return response.jsonp({"error": "error"});
 	}
 
+	collection.findOne({ "username": username })
+		.then(result => {
+	    if(result) {
+	    	console.log("The username '" + username + "' already exists.")
+	    	response.header("X-Content-Type-Options", "nosniff");
+	    	return response.jsonp({"error": "error"});
+	    } else {
+	    	console.log("The username '" + username + "' is unique.");
+	    }
+	  }).catch(err => console.log("The username '" + username + "' is unique."));
+
+	collection.findOne({ "email": email })
+		.then(result => {
+	    if(result) {
+	    	console.log("The email '" + email + "' already exists.")
+	    	response.header("X-Content-Type-Options", "nosniff");
+	    	return response.jsonp({"error": "error"});
+	    } else {
+	    	console.log("The email '" + email + "' is unique.");
+	    }
+	  }).catch(err => console.log("The email '" + email + "' is unique."));
+
 	bcrypt.genSalt(saltRounds, function(error, salt) {
 	    bcrypt.hash(password, salt, function(error, hash) {
-	    	var data = 
+	    	var data =
 	    	{
 	    		"username": username,
 	    		"password": hash,
@@ -127,7 +185,8 @@ app.get('/api/account/create', function(request, response)
 	    		"birthday": birthday,
 	    		"posts": {},
 	    		"comments": {},
-	    		"friends": {}
+	    		"friends": {},
+	    		"likes": {}
 	    	}
 	    	collection.insertOne(data, (error, result) => {
 		        if(error) {
