@@ -14,6 +14,63 @@ const database_name = "rpi_media";
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
 
+function add_page(request, response)
+{
+	var name = String(request.query.name);
+	var description = String(request.query.description);
+	var date = String(request.query.date);
+	var owner = String(request.query.owner);
+
+	var page =
+	{
+		"name": name,
+		"description": description,
+		"date": date,
+		"owner": owner,
+		"posts": {}
+	}
+
+	page_collection.insertOne(page, (error, result) => {
+        if(error) {
+			response.header("X-Content-Type-Options", "nosniff");
+			return response.jsonp({"error": "error"});
+        }
+        console.log('result successfully saved.');
+        response.header("X-Content-Type-Options", "nosniff");
+		return response.jsonp({"success": "success"});
+    });
+}
+
+// logs out the user with session
+app.get('/api/pages/add', function(request, response)
+{
+	var owner = String(request.query.owner);
+
+	account_collection.findOne({ "username": owner })
+		.then(account_data => {
+	    if(account_data) 
+	    {
+	    	add_page(request, response);
+	    } else {
+	    	console.log("Error finding the username.")
+	    	response.header("X-Content-Type-Options", "nosniff");
+			return response.jsonp({"error": "error"});
+	    }
+	  }).catch(error => console.log("Error finding the username."));
+});
+
+// logs out the user with session
+app.get('/api/pages/delete', function(request, response)
+{
+
+});
+
+// logs out the user with session
+app.get('/api/pages/edit', function(request, response)
+{
+
+});
+
 // logs out the user with session
 app.get('/api/account/logout', function(request, response)
 {
@@ -27,64 +84,108 @@ app.get('/api/account/login', function(request, response)
 });
 
 // removes a like to a post
-app.get('/api/account/likes/delete', function(request, response)
+app.get('/api/pages/likes/delete', function(request, response)
 {
 
 });
 
 // adds a like to a post
-app.get('/api/account/likes/add', function(request, response)
+app.get('/api/pages/likes/add', function(request, response)
 {
 
 });
 
 // returns all likes
-app.get('/api/account/likes', function(request, response)
+app.get('/api/pages/likes', function(request, response)
 {
 
 });
 
 // returns all comments
-app.get('/api/account/comments', function(request, response)
+app.get('/api/pages/comments', function(request, response)
 {
 
 });
 
 // edits a comment
-app.get('/api/account/comments/edit', function(request, response)
+app.get('/api/pages/comments/edit', function(request, response)
 {
 
 });
 
 
 // deletes a comments
-app.get('/api/account/comments/delete', function(request, response)
+app.get('/api/pages/comments/delete', function(request, response)
 {
 
 });
 
 // adds a comment
-app.get('/api/account/comments/add', function(request, response)
+app.get('/api/pages/comments/add', function(request, response)
 {
 
 });
 
 // edits a post
-app.get('/api/account/posts/edit', function(request, response)
+app.get('/api/pages/posts/edit', function(request, response)
 {
 
 });
 
 
 // deletes a post
-app.get('/api/account/posts/delete', function(request, response)
+app.get('/api/pages/posts/delete', function(request, response)
 {
 
 });
 
 // adds a post
-app.get('/api/account/posts/add', function(request, response)
+app.get('/api/pages/posts/add', function(request, response)
 {
+	var username = String(request.query.username);
+	var time = String(request.query.time);
+	var date = String(request.query.date);
+	var type = String(request.query.type);
+	var image = String(request.query.image);
+	var text = String(request.query.text);
+	var page = String(request.query.page)
+	var post_id = uuidv4();
+
+	var post =
+	{
+		"username": username,
+		"time": time,
+		"date": date,
+		"type": type,
+		"image": image,
+		"text": text,
+		"page": page
+	}
+
+	page_collection.findOne({ "name": page })
+		.then(result => {
+	    if(result) {
+	    	var all_posts = result.posts;
+	    	all_posts[post_id] = post;
+	    	page_collection.updateOne({ "name" : page }
+		    , { $set: { "posts" : all_posts } }, function(error, update_result) {
+		    	if (error)
+		    	{
+		    		console.log("Something went wrong adding a post.");
+		    		response.header("X-Content-Type-Options", "nosniff");
+		    		return response.jsonp({"error": "error"});
+		    	} else {
+		    		console.log("Successfully added a new post for username " + username);
+		    		response.header("X-Content-Type-Options", "nosniff");
+					return response.jsonp({"success": "success"});
+		    	}
+		    });
+
+	    } else {
+	    	console.log("Could not find data for page " + page);
+	    	return response.jsonp({"error": error});
+	    }
+	  }).catch(err => console.log(err));
 
 });
 
@@ -117,7 +218,7 @@ app.get('/api/account', function(request, response)
 {
 	var username = String(request.query.username);
 	console.log("Fetching all account information for username " + username);
-	collection.findOne({ "username": username })
+	account_collection.findOne({ "username": username })
 		.then(result => {
 	    if(result) {
 	    	console.log("The username '" + username + "' has been found.")
@@ -132,7 +233,7 @@ app.get('/api/account', function(request, response)
 
 function delete_account(username, response)
 {
-	collection.deleteOne({"username" : username}, function(error, obj) {
+	account_collection.deleteOne({"username" : username}, function(error, obj) {
 	    if (error)
 	    {
 	    	console.log("Could not delete account with username " + username);
@@ -154,7 +255,7 @@ app.get('/api/account/delete', function(request, response)
 	var username = String(request.query.username);
 	var password = String(request.query.password);
 	var confirmation = String(request.query.confirmation);
-	collection.findOne({ "username": username })
+	account_collection.findOne({ "username": username })
 		.then(account_data => {
 	    if(account_data) {
 	    	bcrypt.compare(password, account_data.password, function(err, result) {
@@ -176,7 +277,7 @@ function change_password(username, new_password, response)
 {
 	bcrypt.genSalt(saltRounds, function(error, salt) {
 	    bcrypt.hash(new_password, salt, function(error, hash) {
-	    	collection.updateOne({ "username" : username }
+	    	account_collection.updateOne({ "username" : username }
 		    , { $set: { "password" : hash } }, function(error, result) {
 		    	if (error)
 		    	{
@@ -194,7 +295,6 @@ function change_password(username, new_password, response)
 }
 
 // gets username, old password, new password and changes the password
-// MAKE SURE THE OLD PASSWORD IS NOT THE SAME AS THE NEW PASSWORD
 app.get('/api/account/change/password', function(request, response)
 {
 	console.log("Changing the old password.");
@@ -202,7 +302,7 @@ app.get('/api/account/change/password', function(request, response)
 	var old_password = String(request.query.old_password);
 	var new_password = String(request.query.new_password);
 
-	collection.findOne({ "username": username })
+	account_collection.findOne({ "username": username })
 		.then(account_data => {
 	    if(account_data) {
 	    	bcrypt.compare(old_password, account_data.password, function(err, result) {
@@ -254,7 +354,7 @@ function create_account(request, response)
 	    		"friends": {},
 	    		"likes": {}
 	    	}
-	    	collection.insertOne(data, (error, result) => {
+	    	account_collection.insertOne(data, (error, result) => {
 		        if(error) {
 		        	console.log("error");
 					response.header("X-Content-Type-Options", "nosniff");
@@ -288,7 +388,7 @@ app.get('/api/account/create', function(request, response)
 		return response.jsonp({"error": "error"});
 	}
 
-	collection.findOne({ "username": username })
+	account_collection.findOne({ "username": username })
 		.then(result => {
 	    if(result) {
 	    	console.log("The username '" + username + "' already exists.")
@@ -296,7 +396,7 @@ app.get('/api/account/create', function(request, response)
 	    	return response.jsonp({"error": "error"});
 	    } else {
 	    	console.log("The username '" + username + "' is unique.");
-	    	collection.findOne({ "email": email })
+	    	account_collection.findOne({ "email": email })
 			.then(result => {
 		    if(result) {
 		    	console.log("The email '" + email + "' already exists.")
@@ -319,8 +419,10 @@ app.listen(3000, function(){
         if(error) {
             throw error;
         }
+
         database = client.db(database_name);
-        collection = database.collection("rpi");
+        account_collection = database.collection("users");
+        page_collection = database.collection("pages");
         console.log("Connected to MongoDB Atlas Server hosted by Microsoft Azure.");
     });
 });
