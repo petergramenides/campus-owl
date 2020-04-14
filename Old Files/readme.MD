@@ -13,7 +13,7 @@ Moderation of this app will fall upon campus community members. In some cases it
 
 ## Configuration
 
-Setting up **Campus OWL** is very easy. Just download the files, open the repository in a bash terminal, and do the following commands ```npm install```, and then ```ng serve```. This will create a development environment at localhost:4200
+Setting up **Campus OWL** is very easy. Just download the files, open the repository in a bash terminal, and do ```ng serve```
 
 ## Credits
 
@@ -22,15 +22,11 @@ Setting up **Campus OWL** is very easy. Just download the files, open the reposi
 - [Yaseen Mahmoud](https://github.com/ymmahmoud)
 - [Daniel Schnoll](https://github.com/danielschnoll)
 - [Austin Borina](https://github.com/austinborina)
-- [Peter Gramenides](https://github.com/petergramenides)
+- [Peter Gramenides](https://github.com/austinborina)
 
 ### License
 
 **Campus OWL** is provided under the [MIT License](https://opensource.org/licenses/MIT).
-
-### Special Thanks
-
-Thank you to Dr.Brian Callahan, a Professor in the School of Information Technology & Web Science at [Rensselear Polytechnic Institute](https://rpi.edu) for his instruction and support that helped make this project possible.
 
 ### Contact
 
