@@ -8,7 +8,7 @@
     "url": "https://github.com/petergramenides/websys-backend"
   },
   "dependencies": {
-    "express": "expressjs/express",
+    "express": "^4.17.1",
     "body-parser": "^1.19.0",
     "file-system": "^2.2.2",
     "mongodb": "^3.5.5",

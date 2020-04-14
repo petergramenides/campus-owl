@@ -130,6 +130,22 @@ app.get('/api/account', function(request, response)
 	  }).catch(err => console.log("Error with username fetch."));
 });
 
+function delete_account(username, response)
+{
+	collection.deleteOne({"username" : username}, function(error, obj) {
+	    if (error)
+	    {
+	    	console.log("Could not delete account with username " + username);
+	    	response.header("X-Content-Type-Options", "nosniff");
+			return response.jsonp({"error": "error"});
+	    } else {
+	    	console.log("Successfully deleted account with username " + username);
+	    	response.header("X-Content-Type-Options", "nosniff");
+			return response.jsonp({"success": "success"});
+	    }
+  });
+}
+
 // deletes the account given the username, password, and
 // the word "delete"
 app.get('/api/account/delete', function(request, response)
@@ -138,6 +154,22 @@ app.get('/api/account/delete', function(request, response)
 	var username = String(request.query.username);
 	var password = String(request.query.password);
 	var confirmation = String(request.query.confirmation);
+	collection.findOne({ "username": username })
+		.then(account_data => {
+	    if(account_data) {
+	    	bcrypt.compare(password, account_data.password, function(err, result) {
+			    if (result == true && confirmation.toLowerCase() == "delete")
+			    {
+			    	console.log("The password is correct.")
+			    	delete_account(username, response);
+			    } else {
+			    	console.log("The password or confirmation was incorrect.")
+		    		response.header("X-Content-Type-Options", "nosniff");
+		    		return response.jsonp({"error": "error"});
+			    }
+			});
+	    }
+	  }).catch(error => console.log("Error finding the username."));
 });
 
 function change_password(username, new_password, response)
