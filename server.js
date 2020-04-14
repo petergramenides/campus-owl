@@ -62,7 +62,31 @@ app.get('/api/pages/add', function(request, response)
 // logs out the user with session
 app.get('/api/pages/delete', function(request, response)
 {
+	var page = String(request.query.page);
+	var owner = String(request.query.owner);
 
+	page_collection.findOne({ "owner": owner })
+		.then(account_data => {
+	    if(account_data) 
+	    {
+	    	page_collection.deleteOne({"name" : page}, function(error, obj) {
+			    if (error)
+			    {
+			    	console.log("Could not delete page for username " + owner);
+			    	response.header("X-Content-Type-Options", "nosniff");
+					return response.jsonp({"error": "error"});
+			    } else {
+			    	console.log("Successfully deleted page for username " + owner);
+			    	response.header("X-Content-Type-Options", "nosniff");
+					return response.jsonp({"success": "success"});
+			    }
+		  });
+	    } else {
+	    	console.log("Error the owner does not match.")
+	    	response.header("X-Content-Type-Options", "nosniff");
+			return response.jsonp({"error": "error"});
+	    }
+	  }).catch(error => console.log("Error finding the username."));
 });
 
 // logs out the user with session
@@ -347,10 +371,7 @@ function create_account(request, response)
 	    		"first_name": first_name,
 	    		"last_name": last_name,
 	    		"birthday": birthday,
-	    		"posts": {},
-	    		"comments": {},
-	    		"friends": {},
-	    		"likes": {}
+	    		"friends": {}
 	    	}
 	    	account_collection.insertOne(data, (error, result) => {
 		        if(error) {
