@@ -115,14 +115,29 @@ app.get('/api/account/friends', function(request, response)
 // gets all the account information
 app.get('/api/account', function(request, response)
 {
-
+	var username = String(request.query.username);
+	console.log("Fetching all account information for username " + username);
+	collection.findOne({ "username": username })
+		.then(result => {
+	    if(result) {
+	    	console.log("The username '" + username + "' has been found.")
+	    	response.header("X-Content-Type-Options", "nosniff");
+	    	return response.jsonp({"success": result});
+	    } else {
+	    	console.log("Could not find data for username " + username);
+	    	return response.jsonp({"error": error});
+	    }
+	  }).catch(err => console.log("Error with username fetch."));
 });
 
 // deletes the account given the username, password, and
 // the word "delete"
 app.get('/api/account/delete', function(request, response)
 {
-
+	console.log("Deleted a user account.");
+	var username = String(request.query.username);
+	var password = String(request.query.password);
+	var confirmation = String(request.query.confirmation);
 });
 
 function change_password(username, new_password, response)
