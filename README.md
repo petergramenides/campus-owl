@@ -28,6 +28,10 @@ Setting up **Campus OWL** is very easy. Just download the files, open the reposi
 
 **Campus OWL** is provided under the [MIT License](https://opensource.org/licenses/MIT).
 
+### Special Thanks
+
+Thank you to Dr.Brian Callahan, a Professor in the School of Information Technology & Web Science at [Rensselear Polytechnic Institute](https://rpi.edu) for his instruction and support that helped make this project possible.
+
 ### Contact
 
 For any question, comments, or concerns, [create an issue](https://github.com/danielschnoll/ITWS-4500-WebSci-Project/issues/new), or open up a pull request.
