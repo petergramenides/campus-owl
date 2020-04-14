@@ -109,9 +109,7 @@ app.get('/api/account/friends/add', function(request, response)
 // gets all the friends
 app.get('/api/account/friends', function(request, response)
 {
-
-});
-
+});	
 // gets all the account information
 app.get('/api/account', function(request, response)
 {
