@@ -261,7 +261,17 @@ app.get('/api/pages/posts/comments/delete', function(request, response)
 // adds a comment
 app.get('/api/pages/posts/comments/add', function(request, response)
 {
+	// TODO: session handling, do login and logout
+	// get session id and save in its own collection
+	// hash the session ids
+	// make a function that handles all that and returns the
+	// account information, but specifically the username
+	// remove username from most commands and replace it with
+	// the session ID! also add a function to get user info
+	// from the sessionid and return it to the frontend.
 
+	// for comments - copy and paste from likes and make
+	// some small changes. Same goes for followers.
 });
 
 // edits a post, TODO: implement likes and comments
@@ -415,17 +425,16 @@ app.get('/api/pages/posts', function(request, response)
 	  }).catch(err => console.log(err));
 });
 
-// gets all the posts for a user
-app.get('/api/account/posts', function(request, response)
+// gets all the pages and posts
+app.get('/api/pages', function(request, response)
 {
-	coll.find({}).toArray(function (err, result) {
+	page_collection.find({}).toArray(function (err, result) {
         if (err) {
-            res.send(err);
+            return response.jsonp({"error": err});
         } else {
-
-            res.send(JSON.stringify(result));
+        	return response.jsonp({"success": result});
         }
-    })
+    });
 });
 
 // deletes a follower to the user
