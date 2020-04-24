@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, shrink-to-fit=no"
+    />
+    <title>CampusOwl</title>
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="assets/fonts/font-awesome.min.css" />
+    <link rel="stylesheet" href="assets/fonts/ionicons.min.css" />
+    <link rel="stylesheet" href="assets/css/Footer-Dark.css" />
+    <link rel="stylesheet" href="assets/css/Navigation-with-Search.css" />
+    <link rel="stylesheet" href="assets/css/styles.css" />
+  </head>
+
+  <body>
+    <nav
+      class="navbar navbar-light navbar-expand-md text-primary bg-dark navigation-clean-search"
+    >
+      <div class="container">
+        <a class="navbar-brand" href="#">Campus OWL</a
+        ><button
+          data-toggle="collapse"
+          class="navbar-toggler"
+          data-target="#navcol-1"
+        >
+          <span class="sr-only">Toggle navigation</span
+          ><span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navcol-1">
+          <ul class="nav navbar-nav">
+            <li class="nav-item" role="presentation">
+              <a class="nav-link active text-white" href="#">List of Schools</a>
+            </li>
+            <li class="nav-item" role="presentation"></li>
+            <li class="nav-item" role="presentation"></li>
+          </ul>
+        </div>
+        <form class="form-inline mr-auto text-center" target="_self">
+          <div class="form-group">
+            <label for="search-field"><i class="fa fa-search"></i></label
+            ><input
+              class="form-control search-field"
+              type="search"
+              id="search-field"
+              name="search"
+            /><a class="btn btn-light action-button" role="button" href="#"
+              >Search&nbsp;</a
+            >
+          </div>
+        </form>
+      </div>
+    </nav>
+    <div class="jumbotron text-center">
+      <p></p>
+      <img id="campus-logo" src="assets/img/rpi.png" height="400px;" />
+      <h1>Welcome to {{Rensselaer}}</h1>
+    </div>
+    <div class="container mx-auto" style="margin: 50px;">
+      <div class="col col-md-8 text-center mx-auto">
+        <div class="card">
+          <a href="index.html">
+            <div class="card-body">
+              <h4 class="card-title">News/Announcements</h4>
+              <h6 class="text-muted card-subtitle mb-2">
+                For official news from the admin
+              </h6>
+              <p class="card-text text-justify" id="announce-text">
+                Nullam id dolor id nibh ultricies vehicula ut id elit. Cras
+                justo odio, dapibus ac facilisis in, egestas eget quam. Donec id
+                elit non mi porta gravida at eget metus.
+              </p>
+            </div>
+          </a>
+        </div>
+        <div class="card">
+          <a href="index.html">
+            <div class="card-body">
+              <h4 class="card-title">General Discussion</h4>
+              <h6 class="text-muted card-subtitle mb-2">
+                For general school discussion
+              </h6>
+              <p class="card-text text-justify" id="gen-t">
+                Nullam id dolor id nibh ultricies vehicula ut id elit. Cras
+                justo odio, dapibus ac facilisis in, egestas eget quam. Donec id
+                elit non mi porta gravida at eget metus.
+              </p>
+            </div>
+          </a>
+        </div>
+        <div class="card">
+          <a href="index.html">
+            <div class="card-body">
+              <h4 class="card-title">Random</h4>
+              <h6 class="text-muted card-subtitle mb-2">
+                For any off topic discussion
+              </h6>
+              <p class="card-text text-justify" id="rand-t">
+                Nullam id dolor id nibh ultricies vehicula ut id elit. Cras
+                justo odio, dapibus ac facilisis in, egestas eget quam. Donec id
+                elit non mi porta gravida at eget metus.
+              </p>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-dark">
+      <footer>
+        <div class="container">
+          <div class="row">
+            <div class="col-sm-6 col-md-3 item">
+              <h3>Services</h3>
+              <ul>
+                <li><a href="#">API</a></li>
+                <li></li>
+              </ul>
+            </div>
+            <div class="col-sm-6 col-md-3 item">
+              <h3>About</h3>
+              <ul>
+                <li><a href="#">Company</a></li>
+                <li><a href="#">Team</a></li>
+                <li><a href="#">Careers</a></li>
+              </ul>
+            </div>
+            <div class="col-md-6 item text">
+              <h3>Campus OWL</h3>
+              <p>
+                Campus OWL is a dedicated group of RPI students. Our goal is to
+                ensure that every student feels at home at their institution,
+                regardless of sex, age, race, gender identity, creed, religion,
+                or any other defineable characteristic.
+              </p>
+            </div>
+            <div class="col item social">
+              <a href="#"><i class="icon ion-social-facebook"></i></a
+              ><a href="#"><i class="icon ion-social-twitter"></i></a
+              ><a href="#"><i class="icon ion-social-snapchat"></i></a
+              ><a href="#"><i class="icon ion-social-instagram"></i></a>
+            </div>
+          </div>
+          <p class="copyright">Campus OWL © 2020</p>
+        </div>
+      </footer>
+    </div>
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+  </body>
+</html>
