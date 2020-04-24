@@ -41,17 +41,27 @@ function add_page(request, response)
     });
 }
 
-// logs out the user with session
+// TODO: logo out the user with session
 app.get('/api/pages/add', function(request, response)
 {
 	var owner = String(request.query.owner);
 
 	account_collection.findOne({ "username": owner })
 		.then(account_data => {
-	    if(account_data) 
-	    {
-	    	add_page(request, response);
-	    } else {
+			if (account_data)
+			{
+				page_collection.findOne({ "owner": owner })
+				.then(page_data => {
+					if (page_data == null)
+					{
+						add_page(request, response);
+					} else {
+						console.log("Error duplicate page exists.")
+			    		response.header("X-Content-Type-Options", "nosniff");
+						return response.jsonp({"error": "error"});
+					}
+				}).catch(error => console.log("Error adding a new page."));
+			} else {
 	    	console.log("Error finding the username.")
 	    	response.header("X-Content-Type-Options", "nosniff");
 			return response.jsonp({"error": "error"});
@@ -92,7 +102,32 @@ app.get('/api/pages/delete', function(request, response)
 // logs out the user with session
 app.get('/api/pages/edit', function(request, response)
 {
+	var page = String(request.query.page);
+	var current_owner = String(request.query.current_owner);
+	var owner = String(request.query.owner);
+	var name = String(request.query.name);
+	var description = String(request.query.description);
+	var date = String(request.query.date);
 
+	var updated_page =
+	{
+		"name": name,
+		"description": description,
+		"date": date,
+		"owner": owner
+	}
+
+	account_collection.findOne({ "username": current_owner })
+		.then(account_data => {
+			var query = {"name": page};
+			var new_data = { $set: updated_page };
+			page_collection.updateOne(query, new_data, function(err, res) {
+			    if (err) throw err;
+			    console.log("Successfully updated the page " + page + " with new information.");
+			    response.header("X-Content-Type-Options", "nosniff");
+				return response.jsonp({"success": "success"});
+			});
+	  }).catch(error => console.log("Error finding the username."));
 });
 
 // logs out the user with session

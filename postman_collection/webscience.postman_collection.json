@@ -271,6 +271,53 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "EDIT PAGE",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/pages/edit?page=jaded seniors&current_owner=petergramenides&owner=petergramenides&name=jaded grad students?&description=a bunch of jaded grads.&date=4/24/2020",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"pages",
+						"edit"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "jaded seniors"
+						},
+						{
+							"key": "current_owner",
+							"value": "petergramenides"
+						},
+						{
+							"key": "owner",
+							"value": "petergramenides"
+						},
+						{
+							"key": "name",
+							"value": "jaded grad students?"
+						},
+						{
+							"key": "description",
+							"value": "a bunch of jaded grads."
+						},
+						{
+							"key": "date",
+							"value": "4/24/2020"
+						}
+					]
+				}
+			},
+			"response": []
 		}
 	],
 	"protocolProfileBehavior": {}
