@@ -143,44 +143,123 @@ app.get('/api/account/login', function(request, response)
 });
 
 // removes a like to a post
-app.get('/api/pages/likes/delete', function(request, response)
+app.get('/api/pages/posts/likes/delete', function(request, response)
 {
+	var post_id = String(request.query.post_id);
+	var username = String(request.query.username);
+	var page = String(request.query.page);
 
+	page_collection.findOne({ "name": page })
+		.then(result => {
+	    if(result) {
+	    	var all_posts = result.posts;
+	    	if (all_posts[post_id].likes.includes(username))
+	    	{
+	    		var updated_likes = [];
+	    		for (var x = 0; x < all_posts[post_id].likes.length; ++x)
+	    		{
+	    			if (all_posts[post_id].likes[x] != username)
+	    			{
+	    				updated_likes.push(all_posts[post_id].likes[x]);
+	    			}
+	    		} all_posts[post_id].likes = updated_likes;
+	    	} else {
+	    		console.log("User " + username + " already unliked post " + post_id);
+	    		return response.jsonp({"error": "error"});
+	    	}
+	    	  page_collection.updateOne(
+			   { "name": page },
+			   {
+			     $set: { "posts": all_posts },
+			     $currentDate: { lastModified: true }
+			   }
+			);
+	    	console.log(username + " successfully unliked post " + post_id + " on page " + page);
+    		response.header("X-Content-Type-Options", "nosniff");
+			return response.jsonp({"success": "success"});
+	    } else {
+	    	console.log("Could not find data for page " + page);
+	    	return response.jsonp({"error": "error"});
+	    }
+	  }).catch(err => console.log(err));
+});
+
+// returns all likes for a post
+app.get('/api/pages/posts/likes', function(request, response)
+{
+	var post_id = String(request.query.post_id);
+	var page = String(request.query.page);
+
+	page_collection.findOne({ "name": page })
+		.then(result => {
+	    if(result) {
+	    	var all_posts = result.posts;
+	    	console.log("Successfully returned all likes from " + post_id + " on page " + page);
+    		response.header("X-Content-Type-Options", "nosniff");
+			return response.jsonp({"success": all_posts[post_id].likes});
+	    } else {
+	    	console.log("Could not find data for page " + page);
+	    	return response.jsonp({"error": "error"});
+	    }
+	  }).catch(err => console.log(err));
 });
 
 // adds a like to a post
-app.get('/api/pages/likes/add', function(request, response)
+app.get('/api/pages/posts/likes/add', function(request, response)
 {
+	var post_id = String(request.query.post_id);
+	var username = String(request.query.username);
+	var page = String(request.query.page);
 
-});
-
-// returns all likes
-app.get('/api/pages/likes', function(request, response)
-{
-
+	page_collection.findOne({ "name": page })
+		.then(result => {
+	    if(result) {
+	    	var all_posts = result.posts;
+	    	if (!all_posts[post_id].likes.includes(username))
+	    	{
+	    		all_posts[post_id].likes.push(username);
+	    	} else {
+	    		console.log("User " + username + " already liked post " + post_id);
+	    		return response.jsonp({"error": "error"});
+	    	}
+	    	  page_collection.updateOne(
+			   { "name": page },
+			   {
+			     $set: { "posts": all_posts },
+			     $currentDate: { lastModified: true }
+			   }
+			);
+	    	console.log("Successfully added like from user " + username + " to post " + post_id + " on page " + page);
+    		response.header("X-Content-Type-Options", "nosniff");
+			return response.jsonp({"success": "success"});
+	    } else {
+	    	console.log("Could not find data for page " + page);
+	    	return response.jsonp({"error": "error"});
+	    }
+	  }).catch(err => console.log(err));
 });
 
 // returns all comments
-app.get('/api/pages/comments', function(request, response)
+app.get('/api/pages/posts/comments', function(request, response)
 {
 
 });
 
 // edits a comment
-app.get('/api/pages/comments/edit', function(request, response)
+app.get('/api/pages/posts/comments/edit', function(request, response)
 {
 
 });
 
 
 // deletes a comments
-app.get('/api/pages/comments/delete', function(request, response)
+app.get('/api/pages/posts/comments/delete', function(request, response)
 {
 
 });
 
 // adds a comment
-app.get('/api/pages/comments/add', function(request, response)
+app.get('/api/pages/posts/comments/add', function(request, response)
 {
 
 });
@@ -206,20 +285,21 @@ app.get('/api/pages/posts/edit', function(request, response)
 		"image": image,
 		"text": text,
 		"page": page,
-		"likes": {},
-		"comments": {}
+		"likes": [],
+		"comments": [],
+		"engagements": []
 	}
 
 	page_collection.findOne({ "name": page })
 		.then(result => {
 	    if(result) {
 	    	var all_posts = result.posts;
-	    	//var likes = result.posts.post_id.likes;
+	    	var likes = result.posts.post_id.likes;
 	    	//var comments = result.posts.post_id.comments;
 	    	all_posts[post_id] = updated_post;
 	    	console.log(all_posts);
 	    	//all_posts[post_id].comments = comments;
-	    	//all_posts[post_id].likes = likes;
+	    	all_posts[post_id].likes = likes;
 	    	page_collection.updateOne(
 			   { "name": page },
 			   {
@@ -285,8 +365,9 @@ app.get('/api/pages/posts/add', function(request, response)
 		"image": image,
 		"text": text,
 		"page": page,
-		"likes": {},
-		"comments": {}
+		"likes": [],
+		"comments": [],
+		"engagements": []
 	}
 
 	page_collection.findOne({ "name": page })
@@ -337,26 +418,52 @@ app.get('/api/pages/posts', function(request, response)
 // gets all the posts for a user
 app.get('/api/account/posts', function(request, response)
 {
+	coll.find({}).toArray(function (err, result) {
+        if (err) {
+            res.send(err);
+        } else {
 
-
+            res.send(JSON.stringify(result));
+        }
+    })
 });
 
-// deletes a friend
-app.get('/api/account/friends/delete', function(request, response)
+// deletes a follower to the user
+app.get('/api/account/followers/delete', function(request, response)
 {
 
 });
 
-// adds a friend
-app.get('/api/account/friends/add', function(request, response)
+// adds a follower to the user
+app.get('/api/account/followers/add', function(request, response)
 {
 
 });
 
-// gets all the friends
-app.get('/api/account/friends', function(request, response)
+// gets all the accounts a user is following
+app.get('/api/account/following', function(request, response)
 {
-});	
+
+});
+
+// deletes a user from the following list for an account
+app.get('/api/account/following/delete', function(request, response)
+{
+
+});
+
+// adds a user to the following list for an account
+app.get('/api/account/following/add', function(request, response)
+{
+
+});
+
+// gets all the users an account is following
+app.get('/api/account/following', function(request, response)
+{
+
+});
+
 // gets all the account information
 app.get('/api/account', function(request, response)
 {
@@ -493,7 +600,8 @@ function create_account(request, response)
 	    		"first_name": first_name,
 	    		"last_name": last_name,
 	    		"birthday": birthday,
-	    		"friends": {}
+	    		"followers": [],
+	    		"following": []
 	    	}
 	    	account_collection.insertOne(data, (error, result) => {
 		        if(error) {
