@@ -30,7 +30,7 @@ Setting up **Campus OWL** is very easy. Just download the files, open the reposi
 
 ### Special Thanks
 
-Thank you to Dr.Brian Callahan, a Professor in the School of Information Technology & Web Science at [Rensselear Polytechnic Institute](https://rpi.edu) for his instruction and support that helped make this project possible.
+Thank you to Dr. Brian Callahan, a Professor in the School of Information Technology & Web Science at [Rensselear Polytechnic Institute](https://rpi.edu) for his instruction and support that helped make this project possible.
 
 ### Contact
 
