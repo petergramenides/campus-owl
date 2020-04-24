@@ -185,17 +185,83 @@ app.get('/api/pages/comments/add', function(request, response)
 
 });
 
-// edits a post
+// edits a post, TODO: implement likes and comments
 app.get('/api/pages/posts/edit', function(request, response)
 {
+	var username = String(request.query.username);
+	var time = String(request.query.time);
+	var date = String(request.query.date);
+	var type = String(request.query.type);
+	var image = String(request.query.image);
+	var text = String(request.query.text);
+	var page = String(request.query.page);
+	var post_id = String(request.query.post_id);
 
+	var updated_post =
+	{
+		"username": username,
+		"time": time,
+		"date": date,
+		"type": type,
+		"image": image,
+		"text": text,
+		"page": page,
+		"likes": {},
+		"comments": {}
+	}
+
+	page_collection.findOne({ "name": page })
+		.then(result => {
+	    if(result) {
+	    	var all_posts = result.posts;
+	    	//var likes = result.posts.post_id.likes;
+	    	//var comments = result.posts.post_id.comments;
+	    	all_posts[post_id] = updated_post;
+	    	console.log(all_posts);
+	    	//all_posts[post_id].comments = comments;
+	    	//all_posts[post_id].likes = likes;
+	    	page_collection.updateOne(
+			   { "name": page },
+			   {
+			     $set: { "posts": all_posts },
+			     $currentDate: { lastModified: true }
+			   }
+			);
+	    	console.log("Successfully deleted post from " + page);
+    		response.header("X-Content-Type-Options", "nosniff");
+			return response.jsonp({"success": "success"});
+	    } else {
+	    	console.log("Could not find data for page " + page);
+	    	return response.jsonp({"error": "error"});
+	    }
+	  }).catch(err => console.log(err));
 });
-
 
 // deletes a post
 app.get('/api/pages/posts/delete', function(request, response)
 {
-
+	var post_id = String(request.query.post_id);
+	var page = String(request.query.page);
+	page_collection.findOne({ "name": page })
+		.then(result => {
+	    if(result) {
+	    	var all_posts = result.posts;
+	    	delete all_posts[post_id];
+	    	page_collection.updateOne(
+			   { "name": page },
+			   {
+			     $set: { "posts": all_posts },
+			     $currentDate: { lastModified: true }
+			   }
+			);
+	    	console.log("Successfully deleted post from " + page);
+    		response.header("X-Content-Type-Options", "nosniff");
+			return response.jsonp({"success": "success"});
+	    } else {
+	    	console.log("Could not find data for page " + page);
+	    	return response.jsonp({"error": "error"});
+	    }
+	  }).catch(err => console.log(err));
 });
 
 // adds a post
@@ -207,7 +273,7 @@ app.get('/api/pages/posts/add', function(request, response)
 	var type = String(request.query.type);
 	var image = String(request.query.image);
 	var text = String(request.query.text);
-	var page = String(request.query.page)
+	var page = String(request.query.page);
 	var post_id = uuidv4();
 
 	var post =
@@ -218,7 +284,9 @@ app.get('/api/pages/posts/add', function(request, response)
 		"type": type,
 		"image": image,
 		"text": text,
-		"page": page
+		"page": page,
+		"likes": {},
+		"comments": {}
 	}
 
 	page_collection.findOne({ "name": page })
@@ -248,9 +316,28 @@ app.get('/api/pages/posts/add', function(request, response)
 
 });
 
-// gets all the posts
+// gets all the posts for a page
+app.get('/api/pages/posts', function(request, response)
+{
+	var page = String(request.query.page);
+	page_collection.findOne({ "name": page })
+		.then(result => {
+	    if(result) {
+	    	var all_posts = result.posts;
+	    	console.log("Successfully recieved all posts from page " + page);
+    		response.header("X-Content-Type-Options", "nosniff");
+			return response.jsonp({"success": all_posts});
+	    } else {
+	    	console.log("Could not find data for page " + page);
+	    	return response.jsonp({"error": error});
+	    }
+	  }).catch(err => console.log(err));
+});
+
+// gets all the posts for a user
 app.get('/api/account/posts', function(request, response)
 {
+
 
 });
 

@@ -318,6 +318,121 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "GET ALL POSTS FOR PAGE",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/pages/posts?page=jaded seniors",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"pages",
+						"posts"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "jaded seniors"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE POST FROM PAGE",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/pages/posts/delete?post_id=91de718e-ec16-44ca-9946-2427d972d5cd&page=jaded seniors",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"pages",
+						"posts",
+						"delete"
+					],
+					"query": [
+						{
+							"key": "post_id",
+							"value": "91de718e-ec16-44ca-9946-2427d972d5cd"
+						},
+						{
+							"key": "page",
+							"value": "jaded seniors"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "EDIT POST IN PAGE",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/pages/posts/edit?username=petergramenides&time=123123123&date=04/14/2020&type=text&image=null&text=this is an updated post!&page=jaded seniors&post_id=f17041ef-3d04-4220-902d-8a7efd1d1265",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"pages",
+						"posts",
+						"edit"
+					],
+					"query": [
+						{
+							"key": "username",
+							"value": "petergramenides"
+						},
+						{
+							"key": "time",
+							"value": "123123123"
+						},
+						{
+							"key": "date",
+							"value": "04/14/2020"
+						},
+						{
+							"key": "type",
+							"value": "text"
+						},
+						{
+							"key": "image",
+							"value": "null"
+						},
+						{
+							"key": "text",
+							"value": "this is an updated post!"
+						},
+						{
+							"key": "page",
+							"value": "jaded seniors"
+						},
+						{
+							"key": "post_id",
+							"value": "f17041ef-3d04-4220-902d-8a7efd1d1265"
+						}
+					]
+				}
+			},
+			"response": []
 		}
 	],
 	"protocolProfileBehavior": {}
