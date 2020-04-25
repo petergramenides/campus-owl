@@ -1,11 +1,13 @@
 {
-  "name": "Campus-Owl",
-  "description": "websys final project",
-  "license": "MIT",
-  "version": "1.0.0",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/petergramenides/websys-backend"
+  "name": "campus-owl",
+  "version": "0.0.0",
+  "scripts": {
+    "ng": "ng",
+    "start": "ng serve",
+    "build": "ng build",
+    "test": "ng test",
+    "lint": "ng lint",
+    "e2e": "ng e2e"
   },
   "private": true,
   "dependencies": {
@@ -21,14 +23,7 @@
     "@angular/router": "^9.0.7",
     "rxjs": "^6.5.5",
     "tslib": "^1.10.0",
-    "zone.js": "^0.10.3",
-    "express": "^4.17.1",
-    "body-parser": "^1.19.0",
-    "file-system": "^2.2.2",
-    "mongodb": "^3.5.5",
-    "uuid": "^7.0.3",
-    "express-session": "^1.17.0"
-    "bcrypt": "^4.0.1"
+    "zone.js": "^0.10.3"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^0.900.7",
