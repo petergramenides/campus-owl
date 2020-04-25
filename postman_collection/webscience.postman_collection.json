@@ -94,7 +94,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:3000/api/account/?username=petergramenides",
+					"raw": "http://localhost:3000/api/account/?session_id=ab3d6ab5-4186-4397-8563-e170fcbc41d1",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -107,8 +107,8 @@
 					],
 					"query": [
 						{
-							"key": "username",
-							"value": "petergramenides"
+							"key": "session_id",
+							"value": "ab3d6ab5-4186-4397-8563-e170fcbc41d1"
 						}
 					]
 				}
@@ -156,7 +156,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:3000/api/pages/add?name=jaded seniors&description=the class of 2020 lmao&date=04/14/2020&owner=petergramenides",
+					"raw": "http://localhost:3000/api/pages/add?name=jaded seniors&description=the class of 2020 lmao&date=04/14/2020&session_id=ab3d6ab5-4186-4397-8563-e170fcbc41d1",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -181,8 +181,8 @@
 							"value": "04/14/2020"
 						},
 						{
-							"key": "owner",
-							"value": "petergramenides"
+							"key": "session_id",
+							"value": "ab3d6ab5-4186-4397-8563-e170fcbc41d1"
 						}
 					]
 				}
@@ -195,7 +195,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:3000/api/pages/delete?page=jaded seniors&owner=petergramenides",
+					"raw": "http://localhost:3000/api/pages/delete?page=jaded seniors&session_id=ab3d6ab5-4186-4397-8563-e170fcbc41d1",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -212,8 +212,8 @@
 							"value": "jaded seniors"
 						},
 						{
-							"key": "owner",
-							"value": "petergramenides"
+							"key": "session_id",
+							"value": "ab3d6ab5-4186-4397-8563-e170fcbc41d1"
 						}
 					]
 				}
@@ -226,7 +226,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:3000/api/pages/posts/add?username=petergramenides&time=123123123&date=04/14/2020&type=text&image=null&text=hey guys! I really want to graduate.&page=jaded seniors",
+					"raw": "http://localhost:3000/api/pages/posts/add?session_id=ab3d6ab5-4186-4397-8563-e170fcbc41d1&time=123123123&date=04/14/2020&type=text&image=null&text=hey guys! I really want to graduate.&page=jaded seniors",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -240,8 +240,8 @@
 					],
 					"query": [
 						{
-							"key": "username",
-							"value": "petergramenides"
+							"key": "session_id",
+							"value": "ab3d6ab5-4186-4397-8563-e170fcbc41d1"
 						},
 						{
 							"key": "time",
@@ -278,7 +278,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:3000/api/pages/edit?page=jaded seniors&current_owner=petergramenides&owner=petergramenides&name=jaded grad students?&description=a bunch of jaded grads.&date=4/24/2020",
+					"raw": "http://localhost:3000/api/pages/edit?page=jaded seniors&session_id=dd1ee3bf-54f7-454a-978c-771777f47102&owner=petergramenides&name=jaded grad students?&description=a bunch of jaded grads.&date=4/24/2020",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -295,8 +295,8 @@
 							"value": "jaded seniors"
 						},
 						{
-							"key": "current_owner",
-							"value": "petergramenides"
+							"key": "session_id",
+							"value": "dd1ee3bf-54f7-454a-978c-771777f47102"
 						},
 						{
 							"key": "owner",
@@ -325,7 +325,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:3000/api/pages/posts?page=jaded seniors",
+					"raw": "http://localhost:3000/api/pages/posts?page=jaded seniors&session_id=ab3d6ab5-4186-4397-8563-e170fcbc41d1",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -340,6 +340,10 @@
 						{
 							"key": "page",
 							"value": "jaded seniors"
+						},
+						{
+							"key": "session_id",
+							"value": "ab3d6ab5-4186-4397-8563-e170fcbc41d1"
 						}
 					]
 				}
@@ -352,7 +356,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:3000/api/pages/posts/delete?post_id=91de718e-ec16-44ca-9946-2427d972d5cd&page=jaded seniors",
+					"raw": "http://localhost:3000/api/pages/posts/delete?post_id=94350c10-1b25-4597-ae5f-f59fb14a428c&page=jaded seniors&session_id=ab3d6ab5-4186-4397-8563-e170fcbc41d1",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -367,11 +371,15 @@
 					"query": [
 						{
 							"key": "post_id",
-							"value": "91de718e-ec16-44ca-9946-2427d972d5cd"
+							"value": "94350c10-1b25-4597-ae5f-f59fb14a428c"
 						},
 						{
 							"key": "page",
 							"value": "jaded seniors"
+						},
+						{
+							"key": "session_id",
+							"value": "ab3d6ab5-4186-4397-8563-e170fcbc41d1"
 						}
 					]
 				}
@@ -384,7 +392,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:3000/api/pages/posts/edit?username=petergramenides&time=123123123&date=04/14/2020&type=text&image=null&text=this is an updated post!&page=jaded seniors&post_id=f17041ef-3d04-4220-902d-8a7efd1d1265",
+					"raw": "http://localhost:3000/api/pages/posts/edit?session_id=dd1ee3bf-54f7-454a-978c-771777f47102&time=123123123&date=04/14/2020&type=text&image=null&text=this is an updated post!&page=jaded seniors&post_id=f17041ef-3d04-4220-902d-8a7efd1d1265",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -398,8 +406,8 @@
 					],
 					"query": [
 						{
-							"key": "username",
-							"value": "petergramenides"
+							"key": "session_id",
+							"value": "dd1ee3bf-54f7-454a-978c-771777f47102"
 						},
 						{
 							"key": "time",
@@ -440,7 +448,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:3000/api/pages/posts/likes/add?post_id=19963357-b0a0-47e5-9e0d-3044f4b72b0d&username=yaseenmahmoud&page=jaded seniors",
+					"raw": "http://localhost:3000/api/pages/posts/likes/add?post_id=b2abb30c-de04-4390-9fc1-5775fd97ee1f&session_id=ab3d6ab5-4186-4397-8563-e170fcbc41d1&page=jaded seniors",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -456,11 +464,11 @@
 					"query": [
 						{
 							"key": "post_id",
-							"value": "19963357-b0a0-47e5-9e0d-3044f4b72b0d"
+							"value": "b2abb30c-de04-4390-9fc1-5775fd97ee1f"
 						},
 						{
-							"key": "username",
-							"value": "yaseenmahmoud"
+							"key": "session_id",
+							"value": "ab3d6ab5-4186-4397-8563-e170fcbc41d1"
 						},
 						{
 							"key": "page",
@@ -477,7 +485,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:3000/api/pages/posts/likes?post_id&page=jaded seniors",
+					"raw": "http://localhost:3000/api/pages/posts/likes?post_id=b2abb30c-de04-4390-9fc1-5775fd97ee1f&page=jaded seniors&session_id=ab3d6ab5-4186-4397-8563-e170fcbc41d1",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -492,11 +500,15 @@
 					"query": [
 						{
 							"key": "post_id",
-							"value": null
+							"value": "b2abb30c-de04-4390-9fc1-5775fd97ee1f"
 						},
 						{
 							"key": "page",
 							"value": "jaded seniors"
+						},
+						{
+							"key": "session_id",
+							"value": "ab3d6ab5-4186-4397-8563-e170fcbc41d1"
 						}
 					]
 				}
@@ -509,7 +521,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:3000/api/pages/posts/likes/delete?post_id=19963357-b0a0-47e5-9e0d-3044f4b72b0d&username=yaseenmahmoud&page=jaded seniors",
+					"raw": "http://localhost:3000/api/pages/posts/likes/delete?post_id=b2abb30c-de04-4390-9fc1-5775fd97ee1f&session_id=ab3d6ab5-4186-4397-8563-e170fcbc41d1&page=jaded seniors",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -525,11 +537,11 @@
 					"query": [
 						{
 							"key": "post_id",
-							"value": "19963357-b0a0-47e5-9e0d-3044f4b72b0d"
+							"value": "b2abb30c-de04-4390-9fc1-5775fd97ee1f"
 						},
 						{
-							"key": "username",
-							"value": "yaseenmahmoud"
+							"key": "session_id",
+							"value": "ab3d6ab5-4186-4397-8563-e170fcbc41d1"
 						},
 						{
 							"key": "page",
@@ -546,7 +558,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:3000/api/pages",
+					"raw": "http://localhost:3000/api/pages?session_id=ab3d6ab5-4186-4397-8563-e170fcbc41d1",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -555,6 +567,12 @@
 					"path": [
 						"api",
 						"pages"
+					],
+					"query": [
+						{
+							"key": "session_id",
+							"value": "ab3d6ab5-4186-4397-8563-e170fcbc41d1"
+						}
 					]
 				}
 			},
@@ -566,7 +584,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:3000/api/pages/posts/comments/add?post_id=bc5a27f7-ae82-45c1-8d3b-788fd055cd4f&username=danschnoll&page=jaded seniors&comment=Let's ace this project!",
+					"raw": "http://localhost:3000/api/pages/posts/comments/add?post_id=b2abb30c-de04-4390-9fc1-5775fd97ee1f&session_id=ab3d6ab5-4186-4397-8563-e170fcbc41d1&page=jaded seniors&comment=Let's ace this project!",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -582,11 +600,11 @@
 					"query": [
 						{
 							"key": "post_id",
-							"value": "bc5a27f7-ae82-45c1-8d3b-788fd055cd4f"
+							"value": "b2abb30c-de04-4390-9fc1-5775fd97ee1f"
 						},
 						{
-							"key": "username",
-							"value": "danschnoll"
+							"key": "session_id",
+							"value": "ab3d6ab5-4186-4397-8563-e170fcbc41d1"
 						},
 						{
 							"key": "page",
@@ -607,7 +625,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "localhost:3000/api/pages/posts/comments/delete?post_id=b0ce0e44-4168-4e39-a749-f3881add8a9a&username=danschnoll&page=jaded seniors&comment=yo me too!",
+					"raw": "localhost:3000/api/pages/posts/comments/delete?post_id=b2abb30c-de04-4390-9fc1-5775fd97ee1f&session_id=ab3d6ab5-4186-4397-8563-e170fcbc41d1&page=jaded seniors&comment=Let's ace this project!",
 					"host": [
 						"localhost"
 					],
@@ -622,11 +640,11 @@
 					"query": [
 						{
 							"key": "post_id",
-							"value": "b0ce0e44-4168-4e39-a749-f3881add8a9a"
+							"value": "b2abb30c-de04-4390-9fc1-5775fd97ee1f"
 						},
 						{
-							"key": "username",
-							"value": "danschnoll"
+							"key": "session_id",
+							"value": "ab3d6ab5-4186-4397-8563-e170fcbc41d1"
 						},
 						{
 							"key": "page",
@@ -634,7 +652,7 @@
 						},
 						{
 							"key": "comment",
-							"value": "yo me too!"
+							"value": "Let's ace this project!"
 						}
 					]
 				}
@@ -647,7 +665,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:3000/api/account/followers/add?username=petergramenides&follower=danschnoll",
+					"raw": "http://localhost:3000/api/account/followers/add?session_id=ab3d6ab5-4186-4397-8563-e170fcbc41d1&follower=yaseenmahmoud",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -661,12 +679,12 @@
 					],
 					"query": [
 						{
-							"key": "username",
-							"value": "petergramenides"
+							"key": "session_id",
+							"value": "ab3d6ab5-4186-4397-8563-e170fcbc41d1"
 						},
 						{
 							"key": "follower",
-							"value": "danschnoll"
+							"value": "yaseenmahmoud"
 						}
 					]
 				}
@@ -679,7 +697,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:3000/api/account/followers/delete?username=petergramenides&follower=danschnoll",
+					"raw": "http://localhost:3000/api/account/followers/delete?session_id=ab3d6ab5-4186-4397-8563-e170fcbc41d1&follower=yaseenmahmoud",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -693,12 +711,17 @@
 					],
 					"query": [
 						{
-							"key": "username",
-							"value": "petergramenides"
+							"key": "session_id",
+							"value": "ab3d6ab5-4186-4397-8563-e170fcbc41d1"
 						},
 						{
 							"key": "follower",
-							"value": "danschnoll"
+							"value": "yaseenmahmoud"
+						},
+						{
+							"key": "",
+							"value": null,
+							"disabled": true
 						}
 					]
 				}
@@ -711,7 +734,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:3000/api/pages/posts/comments?post_id=bc5a27f7-ae82-45c1-8d3b-788fd055cd4f&page=jaded seniors",
+					"raw": "http://localhost:3000/api/pages/posts/comments?post_id=b2abb30c-de04-4390-9fc1-5775fd97ee1f&page=jaded seniors&session_id=ab3d6ab5-4186-4397-8563-e170fcbc41d1",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -726,11 +749,15 @@
 					"query": [
 						{
 							"key": "post_id",
-							"value": "bc5a27f7-ae82-45c1-8d3b-788fd055cd4f"
+							"value": "b2abb30c-de04-4390-9fc1-5775fd97ee1f"
 						},
 						{
 							"key": "page",
 							"value": "jaded seniors"
+						},
+						{
+							"key": "session_id",
+							"value": "ab3d6ab5-4186-4397-8563-e170fcbc41d1"
 						}
 					]
 				}
@@ -743,7 +770,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:3000/api/account/logout?session_id=700d66c3-ce52-4918-9928-2d4b903cdf4d&username=petergramenides",
+					"raw": "http://localhost:3000/api/account/logout?session_id=f8801a21-2f95-4489-b922-016757fb4e05&username=petergramenides",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -757,7 +784,7 @@
 					"query": [
 						{
 							"key": "session_id",
-							"value": "700d66c3-ce52-4918-9928-2d4b903cdf4d"
+							"value": "f8801a21-2f95-4489-b922-016757fb4e05"
 						},
 						{
 							"key": "username",
@@ -805,7 +832,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:3000/api/account/user?session_id=dd1ee3bf-54f7-454a-978c-771777f47102",
+					"raw": "http://localhost:3000/api/account/user?session_id=f8801a21-2f95-4489-b922-016757fb4e05",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -819,7 +846,7 @@
 					"query": [
 						{
 							"key": "session_id",
-							"value": "dd1ee3bf-54f7-454a-978c-771777f47102"
+							"value": "f8801a21-2f95-4489-b922-016757fb4e05"
 						}
 					]
 				}

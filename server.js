@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 var mongodb = require('mongodb').MongoClient;
 var session = require('express-session');
+var Sync = require('sync');
 const { v4: uuidv4 } = require('uuid');
 
 const app = express();
@@ -14,12 +15,11 @@ const database_name = "rpi_media";
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
 
-function add_page(request, response)
+function add_page(owner, request, response)
 {
 	var name = String(request.query.name);
 	var description = String(request.query.description);
 	var date = String(request.query.date);
-	var owner = String(request.query.owner);
 
 	var page =
 	{
@@ -44,93 +44,118 @@ function add_page(request, response)
 // adds page to page_collection
 app.get('/api/pages/add', function(request, response)
 {
-	var owner = String(request.query.owner);
+	Sync(function(){
+		var session_id = String(request.query.session_id);
+		var username = getUserInformation.sync(null, session_id);
+		if (username == undefined)
+		{
+			response.header("X-Content-Type-Options", "nosniff");
+			return response.jsonp({"error": "session does not exist."});	
+		} var owner = username;
 
-	account_collection.findOne({ "username": owner })
-		.then(account_data => {
-			if (account_data)
-			{
-				page_collection.findOne({ "owner": owner })
-				.then(page_data => {
-					if (page_data == null)
-					{
-						add_page(request, response);
-					} else {
-						console.log("Error duplicate page exists.")
-			    		response.header("X-Content-Type-Options", "nosniff");
-						return response.jsonp({"error": "error"});
-					}
-				}).catch(error => console.log("Error adding a new page."));
-			} else {
-	    	console.log("Error finding the username.")
-	    	response.header("X-Content-Type-Options", "nosniff");
-			return response.jsonp({"error": "error"});
-	    }
-	  }).catch(error => console.log("Error finding the username."));
+		account_collection.findOne({ "username": owner })
+			.then(account_data => {
+				if (account_data)
+				{
+					page_collection.findOne({ "owner": owner })
+					.then(page_data => {
+						if (page_data == null)
+						{
+							add_page(owner, request, response);
+						} else {
+							console.log("Error duplicate page exists.")
+				    		response.header("X-Content-Type-Options", "nosniff");
+							return response.jsonp({"error": "error"});
+						}
+					}).catch(error => console.log("Error adding a new page."));
+				} else {
+		    	console.log("Error finding the username.")
+		    	response.header("X-Content-Type-Options", "nosniff");
+				return response.jsonp({"error": "error"});
+		    }
+		  }).catch(error => console.log("Error finding the username."));
+	});
 });
 
 // logs out the user with session
 app.get('/api/pages/delete', function(request, response)
 {
-	var page = String(request.query.page);
-	var owner = String(request.query.owner);
+	Sync(function(){
+		var session_id = String(request.query.session_id);
+		var username = getUserInformation.sync(null, session_id);
+		if (username == undefined)
+		{
+			response.header("X-Content-Type-Options", "nosniff");
+			return response.jsonp({"error": "session does not exist."});	
+		} var owner = username;
+		var page = String(request.query.page);
 
-	page_collection.findOne({ "owner": owner })
-		.then(account_data => {
-	    if(account_data) 
-	    {
-	    	page_collection.deleteOne({"name" : page}, function(error, obj) {
-			    if (error)
-			    {
-			    	console.log("Could not delete page for username " + owner);
-			    	response.header("X-Content-Type-Options", "nosniff");
-					return response.jsonp({"error": "error"});
-			    } else {
-			    	console.log("Successfully deleted page for username " + owner);
-			    	response.header("X-Content-Type-Options", "nosniff");
-					return response.jsonp({"success": "success"});
-			    }
-		  });
-	    } else {
-	    	console.log("Error the owner does not match.")
-	    	response.header("X-Content-Type-Options", "nosniff");
-			return response.jsonp({"error": "error"});
-	    }
-	  }).catch(error => console.log("Error finding the username."));
+		page_collection.findOne({ "owner": owner })
+			.then(account_data => {
+		    if(account_data) 
+		    {
+		    	page_collection.deleteOne({"name" : page}, function(error, obj) {
+				    if (error)
+				    {
+				    	console.log("Could not delete page for username " + owner);
+				    	response.header("X-Content-Type-Options", "nosniff");
+						return response.jsonp({"error": "error"});
+				    } else {
+				    	console.log("Successfully deleted page for username " + owner);
+				    	response.header("X-Content-Type-Options", "nosniff");
+						return response.jsonp({"success": "success"});
+				    }
+			  });
+		    } else {
+		    	console.log("Error the owner does not match.")
+		    	response.header("X-Content-Type-Options", "nosniff");
+				return response.jsonp({"error": "error"});
+		    }
+		  }).catch(error => console.log("Error finding the username."));
+	});
 });
 
-// logs out the user with session
+// edits the page information
 app.get('/api/pages/edit', function(request, response)
 {
-	var page = String(request.query.page);
-	var current_owner = String(request.query.current_owner);
-	var owner = String(request.query.owner);
-	var name = String(request.query.name);
-	var description = String(request.query.description);
-	var date = String(request.query.date);
+	Sync(function(){
+		var session_id = String(request.query.session_id);
+		var username = getUserInformation.sync(null, session_id);
+		if (username == undefined)
+		{
+			response.header("X-Content-Type-Options", "nosniff");
+			return response.jsonp({"error": "session does not exist."});	
+		}
+		var page = String(request.query.page);
+		var current_owner = username;
+		var owner = String(request.query.owner);
+		var name = String(request.query.name);
+		var description = String(request.query.description);
+		var date = String(request.query.date);
 
-	var updated_page =
-	{
-		"name": name,
-		"description": description,
-		"date": date,
-		"owner": owner
-	}
+		var updated_page =
+		{
+			"name": name,
+			"description": description,
+			"date": date,
+			"owner": owner
+		}
 
-	account_collection.findOne({ "username": current_owner })
-		.then(account_data => {
-			var query = {"name": page};
-			var new_data = { $set: updated_page };
-			page_collection.updateOne(query, new_data, function(err, res) {
-			    if (err) throw err;
-			    console.log("Successfully updated the page " + page + " with new information.");
-			    response.header("X-Content-Type-Options", "nosniff");
-				return response.jsonp({"success": "success"});
-			});
-	  }).catch(error => console.log("Error finding the username."));
+		account_collection.findOne({ "username": current_owner })
+			.then(account_data => {
+				var query = {"name": page};
+				var new_data = { $set: updated_page };
+				page_collection.updateOne(query, new_data, function(err, res) {
+				    if (err) throw err;
+				    console.log("Successfully updated the page " + page + " with new information.");
+				    response.header("X-Content-Type-Options", "nosniff");
+					return response.jsonp({"success": "success"});
+				});
+		  }).catch(error => console.log("Error finding the username."));
+	});
 });
 
-function getUserInformation(session_id)
+function getUserInformation(session_id, callback)
 {
 	account_collection.find({}).toArray(function (err, result) {
         if (err) {
@@ -145,7 +170,7 @@ function getUserInformation(session_id)
         			if (found == true)
         			{
         				console.log(all_users[x].username);
-   						return all_users[x].username;
+        				callback(null, all_users[x].username);
         			}
         		}
         	}
@@ -156,26 +181,34 @@ function getUserInformation(session_id)
 // get user information from session id
 app.get('/api/account/user', function(request, response)
 {
-	var session_id = String(request.query.session_id);
-	account_collection.find({}).toArray(function (err, result) {
-        if (err) {
-            console.log(err);
-        } else {
-        	var all_users = result;
-        	for (var x = 0; x < all_users.length; ++x)
-        	{
-        		for (var y = 0; y < all_users[x].sessions.length; ++y)
-        		{
-        			var found = bcrypt.compareSync(session_id, all_users[x].sessions[y]);
-        			if (found == true)
-        			{
-        				response.header("X-Content-Type-Options", "nosniff");
-   						return response.jsonp({"success": all_users[x].username});
-        			}
-        		}
-        	}
-        }
-    });
+	Sync(function(){
+		var session_id = String(request.query.session_id);
+		var username = getUserInformation.sync(null, session_id);
+		if (username == undefined)
+		{
+			response.header("X-Content-Type-Options", "nosniff");
+			return response.jsonp({"error": "session does not exist."});	
+		}
+		account_collection.find({}).toArray(function (err, result) {
+	        if (err) {
+	            console.log(err);
+	        } else {
+	        	var all_users = result;
+	        	for (var x = 0; x < all_users.length; ++x)
+	        	{
+	        		for (var y = 0; y < all_users[x].sessions.length; ++y)
+	        		{
+	        			var found = bcrypt.compareSync(session_id, all_users[x].sessions[y]);
+	        			if (found == true)
+	        			{
+	        				response.header("X-Content-Type-Options", "nosniff");
+	   						return response.jsonp({"success": all_users[x].username});
+	        			}
+	        		}
+	        	}
+	        }
+	    });
+	});
 });
 
 function account_logout(session_id, sessions, request, response)
@@ -214,7 +247,7 @@ app.get('/api/account/logout', function(request, response)
 		.then(account_data => {
 	    if(account_data) {
 	    	sessions = account_data.sessions;
-	    	account_logout(session_id,sessions, request, response);
+	    	account_logout(session_id, sessions, request, response);
 	    }
 	  }).catch(error => console.log("Error finding the username."));
 });
@@ -262,52 +295,67 @@ app.get('/api/account/login', function(request, response)
 // removes a like to a post
 app.get('/api/pages/posts/likes/delete', function(request, response)
 {
-	var post_id = String(request.query.post_id);
-	var username = String(request.query.username);
-	var page = String(request.query.page);
+	Sync(function(){
+		var session_id = String(request.query.session_id);
+		var username = getUserInformation.sync(null, session_id);
+		if (username == undefined)
+		{
+			response.header("X-Content-Type-Options", "nosniff");
+			return response.jsonp({"error": "session does not exist."});	
+		}
+		var post_id = String(request.query.post_id);
+		var page = String(request.query.page);
 
-	page_collection.findOne({ "name": page })
-		.then(result => {
-	    if(result) {
-	    	var all_posts = result.posts;
-	    	if (all_posts[post_id].likes.includes(username))
-	    	{
-	    		var updated_likes = [];
-	    		for (var x = 0; x < all_posts[post_id].likes.length; ++x)
-	    		{
-	    			if (all_posts[post_id].likes[x] != username)
-	    			{
-	    				updated_likes.push(all_posts[post_id].likes[x]);
-	    			}
-	    		} all_posts[post_id].likes = updated_likes;
-	    	} else {
-	    		console.log("User " + username + " already unliked post " + post_id);
-	    		return response.jsonp({"error": "error"});
-	    	}
-	    	  page_collection.updateOne(
-			   { "name": page },
-			   {
-			     $set: { "posts": all_posts },
-			     $currentDate: { lastModified: true }
-			   }
-			);
-	    	console.log(username + " successfully unliked post " + post_id + " on page " + page);
-    		response.header("X-Content-Type-Options", "nosniff");
-			return response.jsonp({"success": "success"});
-	    } else {
-	    	console.log("Could not find data for page " + page);
-	    	return response.jsonp({"error": "error"});
-	    }
-	  }).catch(err => console.log(err));
+		page_collection.findOne({ "name": page })
+			.then(result => {
+		    if(result) {
+		    	var all_posts = result.posts;
+		    	if (all_posts[post_id].likes.includes(username))
+		    	{
+		    		var updated_likes = [];
+		    		for (var x = 0; x < all_posts[post_id].likes.length; ++x)
+		    		{
+		    			if (all_posts[post_id].likes[x] != username)
+		    			{
+		    				updated_likes.push(all_posts[post_id].likes[x]);
+		    			}
+		    		} all_posts[post_id].likes = updated_likes;
+		    	} else {
+		    		console.log("User " + username + " already unliked post " + post_id);
+		    		return response.jsonp({"error": "error"});
+		    	}
+		    	  page_collection.updateOne(
+				   { "name": page },
+				   {
+				     $set: { "posts": all_posts },
+				     $currentDate: { lastModified: true }
+				   }
+				);
+		    	console.log(username + " successfully unliked post " + post_id + " on page " + page);
+	    		response.header("X-Content-Type-Options", "nosniff");
+				return response.jsonp({"success": "success"});
+		    } else {
+		    	console.log("Could not find data for page " + page);
+		    	return response.jsonp({"error": "error"});
+		    }
+		  }).catch(err => console.log(err));
+	});
 });
 
 // returns all likes for a post
 app.get('/api/pages/posts/likes', function(request, response)
 {
-	var post_id = String(request.query.post_id);
-	var page = String(request.query.page);
-
-	page_collection.findOne({ "name": page })
+	Sync(function(){
+		var session_id = String(request.query.session_id);
+		var username = getUserInformation.sync(null, session_id);
+		if (username == undefined)
+		{
+			response.header("X-Content-Type-Options", "nosniff");
+			return response.jsonp({"error": "session does not exist."});	
+		}
+		var post_id = String(request.query.post_id);
+		var page = String(request.query.page);
+		page_collection.findOne({ "name": page })
 		.then(result => {
 	    if(result) {
 	    	var all_posts = result.posts;
@@ -319,323 +367,407 @@ app.get('/api/pages/posts/likes', function(request, response)
 	    	return response.jsonp({"error": "error"});
 	    }
 	  }).catch(err => console.log(err));
+	});
 });
 
 // adds a like to a post
 app.get('/api/pages/posts/likes/add', function(request, response)
 {
-	var post_id = String(request.query.post_id);
-	var username = String(request.query.username);
-	var page = String(request.query.page);
+	Sync(function(){
+		var session_id = String(request.query.session_id);
+		var username = getUserInformation.sync(null, session_id);
+		if (username == undefined)
+		{
+			response.header("X-Content-Type-Options", "nosniff");
+			return response.jsonp({"error": "session does not exist."});	
+		}
+		var post_id = String(request.query.post_id);
+		var page = String(request.query.page);
 
-	page_collection.findOne({ "name": page })
-		.then(result => {
-	    if(result) {
-	    	var all_posts = result.posts;
-	    	if (!all_posts[post_id].likes.includes(username))
-	    	{
-	    		all_posts[post_id].likes.push(username);
-	    	} else {
-	    		console.log("User " + username + " already liked post " + post_id);
-	    		return response.jsonp({"error": "error"});
-	    	}
-	    	  page_collection.updateOne(
-			   { "name": page },
-			   {
-			     $set: { "posts": all_posts },
-			     $currentDate: { lastModified: true }
-			   }
-			);
-	    	console.log("Successfully added like from user " + username + " to post " + post_id + " on page " + page);
-    		response.header("X-Content-Type-Options", "nosniff");
-			return response.jsonp({"success": "success"});
-	    } else {
-	    	console.log("Could not find data for page " + page);
-	    	return response.jsonp({"error": "error"});
-	    }
-	  }).catch(err => console.log(err));
+		page_collection.findOne({ "name": page })
+			.then(result => {
+		    if(result) {
+		    	var all_posts = result.posts;
+		    	if (!all_posts[post_id].likes.includes(username))
+		    	{
+		    		all_posts[post_id].likes.push(username);
+		    	} else {
+		    		console.log("User " + username + " already liked post " + post_id);
+		    		return response.jsonp({"error": "error"});
+		    	}
+		    	  page_collection.updateOne(
+				   { "name": page },
+				   {
+				     $set: { "posts": all_posts },
+				     $currentDate: { lastModified: true }
+				   }
+				);
+		    	console.log("Successfully added like from user " + username + " to post " + post_id + " on page " + page);
+	    		response.header("X-Content-Type-Options", "nosniff");
+				return response.jsonp({"success": "success"});
+		    } else {
+		    	console.log("Could not find data for page " + page);
+		    	return response.jsonp({"error": "error"});
+		    }
+		  }).catch(err => console.log(err));
+	});
 });
 
 // returns all comments
 app.get('/api/pages/posts/comments', function(request, response)
 {
-	var post_id = String(request.query.post_id);
-	var page = String(request.query.page);
+	Sync(function(){
+		var session_id = String(request.query.session_id);
+		var username = getUserInformation.sync(null, session_id);
+		if (username == undefined)
+		{
+			response.header("X-Content-Type-Options", "nosniff");
+			return response.jsonp({"error": "session does not exist."});	
+		}
+		var post_id = String(request.query.post_id);
+		var page = String(request.query.page);
 
-	page_collection.findOne({ "name": page })
-		.then(result => {
-	    if(result) {
-	    	var all_comments = result.posts[post_id].comments;
-	    	var all_engagements = result.posts[post_id].engagements;
-	    	var comments = 
-	    	{
-	    		"comments": all_comments,
-	    		"engagements": all_engagements
-	    	}
-	    	console.log("Successfully return data from post_id " + post_id + " to page " + page);
-    		response.header("X-Content-Type-Options", "nosniff");
-			return response.jsonp({"success": comments});
-	    } else {
-	    	console.log("Could not find data for page " + page);
-	    	return response.jsonp({"error": "error"});
-	    }
-	  }).catch(err => console.log(err));
+		page_collection.findOne({ "name": page })
+			.then(result => {
+		    if(result) {
+		    	var all_comments = result.posts[post_id].comments;
+		    	var all_engagements = result.posts[post_id].engagements;
+		    	var comments = 
+		    	{
+		    		"comments": all_comments,
+		    		"engagements": all_engagements
+		    	}
+		    	console.log("Successfully return data from post_id " + post_id + " to page " + page);
+	    		response.header("X-Content-Type-Options", "nosniff");
+				return response.jsonp({"success": comments});
+		    } else {
+		    	console.log("Could not find data for page " + page);
+		    	return response.jsonp({"error": "error"});
+		    }
+		  }).catch(err => console.log(err));
+	});
 });
 
 // deletes a comments
 app.get('/api/pages/posts/comments/delete', function(request, response)
 {
-	var post_id = String(request.query.post_id);
-	var username = String(request.query.username);
-	var page = String(request.query.page);
-	var comment = String(request.query.comment);
+	Sync(function(){
+		var session_id = String(request.query.session_id);
+		var username = getUserInformation.sync(null, session_id);
+		if (username == undefined)
+		{
+			response.header("X-Content-Type-Options", "nosniff");
+			return response.jsonp({"error": "session does not exist."});	
+		}
+		var post_id = String(request.query.post_id);
+		var page = String(request.query.page);
+		var comment = String(request.query.comment);
 
-	page_collection.findOne({ "name": page })
-		.then(result => {
-	    if(result) {
-	    	var all_posts = result.posts;
-	    	if (all_posts[post_id].comments.includes(comment))
-	    	{
-	    		var updated_comments = [];
-	    		var updated_engagements = all_posts[post_id].engagements;
-	    		var engagement_index = -1;
-	    		for (var x = 0; x < all_posts[post_id].comments.length; ++x)
-	    		{
-	    			if (all_posts[post_id].comments[x] != comment)
-	    			{
-	    				updated_comments.push(all_posts[post_id].comments[x]);
-	    				engagement_index = x;
-	    			}
-	    		} all_posts[post_id].comments = updated_comments;
-	    	} else {
-	    		console.log("User " + username + " already deleted comment for post " + post_id);
-	    		return response.jsonp({"error": "error"});
-	    	}
+		page_collection.findOne({ "name": page })
+			.then(result => {
+		    if(result) {
+		    	var all_posts = result.posts;
+		    	if (all_posts[post_id].comments.includes(comment))
+		    	{
+		    		var updated_comments = [];
+		    		var updated_engagements = all_posts[post_id].engagements;
+		    		var engagement_index = -1;
+		    		for (var x = 0; x < all_posts[post_id].comments.length; ++x)
+		    		{
+		    			if (all_posts[post_id].comments[x] != comment)
+		    			{
+		    				updated_comments.push(all_posts[post_id].comments[x]);
+		    				engagement_index = x;
+		    			}
+		    		} all_posts[post_id].comments = updated_comments;
+		    	} else {
+		    		console.log("User " + username + " already deleted comment for post " + post_id);
+		    		return response.jsonp({"error": "error"});
+		    	}
 
-	    	if (engagement_index > -1) {
-	    		updated_engagements.splice(engagement_index, 1);
-			} all_posts[post_id].engagements = updated_engagements;
+		    	if (engagement_index > -1) {
+		    		updated_engagements.splice(engagement_index, 1);
+				} all_posts[post_id].engagements = updated_engagements;
 
-	    	  page_collection.updateOne(
-			   { "name": page },
-			   {
-			     $set: { "posts": all_posts },
-			     $currentDate: { lastModified: true }
-			   }
-			);
-	    	console.log(username + " successfully removed comment from post " + post_id + " on page " + page);
-    		response.header("X-Content-Type-Options", "nosniff");
-			return response.jsonp({"success": "success"});
-	    } else {
-	    	console.log("Could not find data for page " + page);
-	    	return response.jsonp({"error": "error"});
-	    }
-	  }).catch(err => console.log(err));
+		    	  page_collection.updateOne(
+				   { "name": page },
+				   {
+				     $set: { "posts": all_posts },
+				     $currentDate: { lastModified: true }
+				   }
+				);
+		    	console.log(username + " successfully removed comment from post " + post_id + " on page " + page);
+	    		response.header("X-Content-Type-Options", "nosniff");
+				return response.jsonp({"success": "success"});
+		    } else {
+		    	console.log("Could not find data for page " + page);
+		    	return response.jsonp({"error": "error"});
+		    }
+		  }).catch(err => console.log(err));
+
+	});
 });
 
 // adds a comment
 app.get('/api/pages/posts/comments/add', function(request, response)
 {
-	var post_id = String(request.query.post_id);
-	var username = String(request.query.username);
-	var page = String(request.query.page);
-	var comment = String(request.query.comment);
+	Sync(function(){
+		var session_id = String(request.query.session_id);
+		var username = getUserInformation.sync(null, session_id);
+		if (username == undefined)
+		{
+			response.header("X-Content-Type-Options", "nosniff");
+			return response.jsonp({"error": "session does not exist."});	
+		}
+		var post_id = String(request.query.post_id);
+		var page = String(request.query.page);
+		var comment = String(request.query.comment);
 
-	page_collection.findOne({ "name": page })
-		.then(result => {
-	    if(result) {
-	    	var all_posts = result.posts;
-    		all_posts[post_id].engagements.push(username);
-    		all_posts[post_id].comments.push(comment);
-	    	  page_collection.updateOne(
-			   { "name": page },
-			   {
-			     $set: { "posts": all_posts },
-			     $currentDate: { lastModified: true }
-			   }
-			);
-	    	console.log("Successfully added comment from user " + username + " to post " + post_id + " on page " + page);
-    		response.header("X-Content-Type-Options", "nosniff");
-			return response.jsonp({"success": "success"});
-	    } else {
-	    	console.log("Could not find data for page " + page);
-	    	return response.jsonp({"error": "error"});
-	    }
-	  }).catch(err => console.log(err));
+		page_collection.findOne({ "name": page })
+			.then(result => {
+		    if(result) {
+		    	var all_posts = result.posts;
+	    		all_posts[post_id].engagements.push(username);
+	    		all_posts[post_id].comments.push(comment);
+		    	  page_collection.updateOne(
+				   { "name": page },
+				   {
+				     $set: { "posts": all_posts },
+				     $currentDate: { lastModified: true }
+				   }
+				);
+		    	console.log("Successfully added comment from user " + username + " to post " + post_id + " on page " + page);
+	    		response.header("X-Content-Type-Options", "nosniff");
+				return response.jsonp({"success": "success"});
+		    } else {
+		    	console.log("Could not find data for page " + page);
+		    	return response.jsonp({"error": "error"});
+		    }
+		  }).catch(err => console.log(err));
+	});
 });
 
 // edits a post on a page
 app.get('/api/pages/posts/edit', function(request, response)
 {
-	var username = String(request.query.username);
-	var time = String(request.query.time);
-	var date = String(request.query.date);
-	var type = String(request.query.type);
-	var image = String(request.query.image);
-	var text = String(request.query.text);
-	var page = String(request.query.page);
-	var post_id = String(request.query.post_id);
+	Sync(function(){
+		var session_id = String(request.query.session_id);
+		var username = getUserInformation.sync(null, session_id);
+		if (username == undefined)
+		{
+			response.header("X-Content-Type-Options", "nosniff");
+			return response.jsonp({"error": "session does not exist."});	
+		}
+		var time = String(request.query.time);
+		var date = String(request.query.date);
+		var type = String(request.query.type);
+		var image = String(request.query.image);
+		var text = String(request.query.text);
+		var page = String(request.query.page);
+		var post_id = String(request.query.post_id);
 
-	var updated_post =
-	{
-		"username": username,
-		"time": time,
-		"date": date,
-		"type": type,
-		"image": image,
-		"text": text,
-		"page": page,
-		"likes": [],
-		"comments": [],
-		"engagements": []
-	}
+		var updated_post =
+		{
+			"username": username,
+			"time": time,
+			"date": date,
+			"type": type,
+			"image": image,
+			"text": text,
+			"page": page,
+			"likes": [],
+			"comments": [],
+			"engagements": []
+		}
 
-	page_collection.findOne({ "name": page })
-		.then(result => {
-	    if(result) {
-	    	var all_posts = result.posts;
-	    	var likes = result.posts.post_id.likes;
-	    	var comments = result.posts.post_id.comments;
-	    	var engagements = result.posts.post_id.engagements;
-	    	all_posts[post_id] = updated_post;
-	    	console.log(all_posts);
-	    	all_posts[post_id].comments = comments;
-	    	all_posts[post_id].engagements = engagements;
-	    	all_posts[post_id].likes = likes;
-	    	page_collection.updateOne(
-			   { "name": page },
-			   {
-			     $set: { "posts": all_posts },
-			     $currentDate: { lastModified: true }
-			   }
-			);
-	    	console.log("Successfully deleted post from " + page);
-    		response.header("X-Content-Type-Options", "nosniff");
-			return response.jsonp({"success": "success"});
-	    } else {
-	    	console.log("Could not find data for page " + page);
-	    	return response.jsonp({"error": "error"});
-	    }
-	  }).catch(err => console.log(err));
+		page_collection.findOne({ "name": page })
+			.then(result => {
+		    if(result) {
+		    	var all_posts = result.posts;
+		    	var likes = result.posts.post_id.likes;
+		    	var comments = result.posts.post_id.comments;
+		    	var engagements = result.posts.post_id.engagements;
+		    	all_posts[post_id] = updated_post;
+		    	console.log(all_posts);
+		    	all_posts[post_id].comments = comments;
+		    	all_posts[post_id].engagements = engagements;
+		    	all_posts[post_id].likes = likes;
+		    	page_collection.updateOne(
+				   { "name": page },
+				   {
+				     $set: { "posts": all_posts },
+				     $currentDate: { lastModified: true }
+				   }
+				);
+		    	console.log("Successfully deleted post from " + page);
+	    		response.header("X-Content-Type-Options", "nosniff");
+				return response.jsonp({"success": "success"});
+		    } else {
+		    	console.log("Could not find data for page " + page);
+		    	return response.jsonp({"error": "error"});
+		    }
+		  }).catch(err => console.log(err));
+	});
 });
 
 // deletes a post
 app.get('/api/pages/posts/delete', function(request, response)
 {
-	var post_id = String(request.query.post_id);
-	var page = String(request.query.page);
-	page_collection.findOne({ "name": page })
-		.then(result => {
-	    if(result) {
-	    	var all_posts = result.posts;
-	    	delete all_posts[post_id];
-	    	page_collection.updateOne(
-			   { "name": page },
-			   {
-			     $set: { "posts": all_posts },
-			     $currentDate: { lastModified: true }
-			   }
-			);
-	    	console.log("Successfully deleted post from " + page);
-    		response.header("X-Content-Type-Options", "nosniff");
-			return response.jsonp({"success": "success"});
-	    } else {
-	    	console.log("Could not find data for page " + page);
-	    	return response.jsonp({"error": "error"});
-	    }
-	  }).catch(err => console.log(err));
+	Sync(function(){
+		var session_id = String(request.query.session_id);
+		var username = getUserInformation.sync(null, session_id);
+		if (username == undefined)
+		{
+			response.header("X-Content-Type-Options", "nosniff");
+			return response.jsonp({"error": "session does not exist."});	
+		}
+		var post_id = String(request.query.post_id);
+		var page = String(request.query.page);
+		page_collection.findOne({ "name": page })
+			.then(result => {
+		    if(result) {
+		    	var all_posts = result.posts;
+		    	delete all_posts[post_id];
+		    	page_collection.updateOne(
+				   { "name": page },
+				   {
+				     $set: { "posts": all_posts },
+				     $currentDate: { lastModified: true }
+				   }
+				);
+		    	console.log("Successfully deleted post from " + page);
+	    		response.header("X-Content-Type-Options", "nosniff");
+				return response.jsonp({"success": "success"});
+		    } else {
+		    	console.log("Could not find data for page " + page);
+		    	return response.jsonp({"error": "error"});
+		    }
+		  }).catch(err => console.log(err));
+	});
 });
 
 // adds a post
 app.get('/api/pages/posts/add', function(request, response)
 {
-	var username = String(request.query.username);
-	var time = String(request.query.time);
-	var date = String(request.query.date);
-	var type = String(request.query.type);
-	var image = String(request.query.image);
-	var text = String(request.query.text);
-	var page = String(request.query.page);
-	var post_id = uuidv4();
+	Sync(function(){
+		var session_id = String(request.query.session_id);
+		var username = getUserInformation.sync(null, session_id);
+		if (username == undefined)
+		{
+			response.header("X-Content-Type-Options", "nosniff");
+			return response.jsonp({"error": "session does not exist."});	
+		}
+		var time = String(request.query.time);
+		var date = String(request.query.date);
+		var type = String(request.query.type);
+		var image = String(request.query.image);
+		var text = String(request.query.text);
+		var page = String(request.query.page);
+		var post_id = uuidv4();
 
-	var post =
-	{
-		"username": username,
-		"time": time,
-		"date": date,
-		"type": type,
-		"image": image,
-		"text": text,
-		"page": page,
-		"likes": [],
-		"comments": [],
-		"engagements": []
-	}
+		var post =
+		{
+			"username": username,
+			"time": time,
+			"date": date,
+			"type": type,
+			"image": image,
+			"text": text,
+			"page": page,
+			"likes": [],
+			"comments": [],
+			"engagements": []
+		}
 
-	page_collection.findOne({ "name": page })
-		.then(result => {
-	    if(result) {
-	    	var all_posts = result.posts;
-	    	all_posts[post_id] = post;
-	    	page_collection.updateOne({ "name" : page }
-		    , { $set: { "posts" : all_posts } }, function(error, update_result) {
-		    	if (error)
-		    	{
-		    		console.log("Something went wrong adding a post.");
-		    		response.header("X-Content-Type-Options", "nosniff");
-		    		return response.jsonp({"error": "error"});
-		    	} else {
-		    		console.log("Successfully added a new post for username " + username);
-		    		response.header("X-Content-Type-Options", "nosniff");
-					return response.jsonp({"success": "success"});
-		    	}
-		    });
+		page_collection.findOne({ "name": page })
+			.then(result => {
+		    if(result) {
+		    	var all_posts = result.posts;
+		    	all_posts[post_id] = post;
+		    	page_collection.updateOne({ "name" : page }
+			    , { $set: { "posts" : all_posts } }, function(error, update_result) {
+			    	if (error)
+			    	{
+			    		console.log("Something went wrong adding a post.");
+			    		response.header("X-Content-Type-Options", "nosniff");
+			    		return response.jsonp({"error": "error"});
+			    	} else {
+			    		console.log("Successfully added a new post for username " + username);
+			    		response.header("X-Content-Type-Options", "nosniff");
+						return response.jsonp({"success": "success"});
+			    	}
+			    });
 
-	    } else {
-	    	console.log("Could not find data for page " + page);
-	    	return response.jsonp({"error": error});
-	    }
-	  }).catch(err => console.log(err));
+		    } else {
+		    	console.log("Could not find data for page " + page);
+		    	return response.jsonp({"error": error});
+		    }
+		  }).catch(err => console.log(err));
+	});
 });
 
 // gets all the posts for a page
 app.get('/api/pages/posts', function(request, response)
 {
-	var page = String(request.query.page);
-	page_collection.findOne({ "name": page })
-		.then(result => {
-	    if(result) {
-	    	var all_posts = result.posts;
-	    	console.log("Successfully recieved all posts from page " + page);
-    		response.header("X-Content-Type-Options", "nosniff");
-			return response.jsonp({"success": all_posts});
-	    } else {
-	    	console.log("Could not find data for page " + page);
-	    	return response.jsonp({"error": error});
-	    }
-	  }).catch(err => console.log(err));
+	Sync(function(){
+		var session_id = String(request.query.session_id);
+		var username = getUserInformation.sync(null, session_id);
+		if (username == undefined)
+		{
+			response.header("X-Content-Type-Options", "nosniff");
+			return response.jsonp({"error": "session does not exist."});	
+		}
+		var page = String(request.query.page);
+		page_collection.findOne({ "name": page })
+			.then(result => {
+		    if(result) {
+		    	var all_posts = result.posts;
+		    	console.log("Successfully recieved all posts from page " + page);
+	    		response.header("X-Content-Type-Options", "nosniff");
+				return response.jsonp({"success": all_posts});
+		    } else {
+		    	console.log("Could not find data for page " + page);
+		    	return response.jsonp({"error": error});
+		    }
+		  }).catch(err => console.log(err));
+	});
 });
 
 // gets all the pages and posts
 app.get('/api/pages', function(request, response)
 {
-	page_collection.find({}).toArray(function (err, result) {
-        if (err) {
-            return response.jsonp({"error": err});
-        } else {
-        	return response.jsonp({"success": result});
-        }
-    });
+	Sync(function(){
+		var session_id = String(request.query.session_id);
+		var username = getUserInformation.sync(null, session_id);
+		if (username == undefined)
+		{
+			response.header("X-Content-Type-Options", "nosniff");
+			return response.jsonp({"error": "session does not exist."});	
+		}
+		page_collection.find({}).toArray(function (err, result) {
+	        if (err) {
+	            return response.jsonp({"error": err});
+	        } else {
+	        	return response.jsonp({"success": result});
+	        }
+	    });
+	});
 });
 
 // deletes a follower to the user
 app.get('/api/account/followers/delete', function(request, response)
 {
-	var session_id = String(request.query.session_id);
-	var username = getUserInformation(session_id);
-	var follower = String(request.query.follower);
+	Sync(function(){
+		var session_id = String(request.query.session_id);
+		var username = getUserInformation.sync(null, session_id);
+		if (username == undefined)
+		{
+			response.header("X-Content-Type-Options", "nosniff");
+			return response.jsonp({"error": "session does not exist."});	
+		}
+		var follower = String(request.query.follower);
 
-	account_collection.findOne({ "username": username })
+		account_collection.findOne({ "username": username })
 		.then(result => {
 	    if(result) {
 	    	var followers = result.followers;
@@ -668,16 +800,23 @@ app.get('/api/account/followers/delete', function(request, response)
 	    	return response.jsonp({"error": "error"});
 	    }
 	  }).catch(err => console.log(err));
+	});
 });
 
 // adds a follower to the user
 app.get('/api/account/followers/add', function(request, response)
 {
-	var session_id = String(request.query.session_id);
-	var username = getUserInformation(session_id);
-	var follower = String(request.query.follower);
+	Sync(function(){
+		var session_id = String(request.query.session_id);
+		var username = getUserInformation.sync(null, session_id);
+		if (username == undefined)
+		{
+			response.header("X-Content-Type-Options", "nosniff");
+			return response.jsonp({"error": "session does not exist."});	
+		}
+		var follower = String(request.query.follower);
 
-	account_collection.findOne({ "username": username })
+		account_collection.findOne({ "username": username })
 		.then(result => {
 	    if(result) {
 	    	var followers = result.followers;
@@ -703,25 +842,34 @@ app.get('/api/account/followers/add', function(request, response)
 	    	return response.jsonp({"error": "error"});
 	    }
 	  }).catch(err => console.log(err));
+
+	});
 });
 
 // gets all the account information
 app.get('/api/account', function(request, response)
 {
-	var session_id = String(request.query.session_id);
-	var username = getUserInformation(session_id);
-	console.log("Fetching all account information for username " + username);
-	account_collection.findOne({ "username": username })
-		.then(result => {
-	    if(result) {
-	    	console.log("The username '" + username + "' has been found.")
-	    	response.header("X-Content-Type-Options", "nosniff");
-	    	return response.jsonp({"success": result});
-	    } else {
-	    	console.log("Could not find data for username " + username);
-	    	return response.jsonp({"error": error});
-	    }
-	  }).catch(err => console.log("Error with username fetch."));
+	Sync(function(){
+		var session_id = String(request.query.session_id);
+		var username = getUserInformation.sync(null, session_id);
+		if (username == undefined)
+		{
+			response.header("X-Content-Type-Options", "nosniff");
+			return response.jsonp({"error": "session does not exist."});	
+		}
+		console.log("Fetching all account information for username " + username);
+		account_collection.findOne({ "username": username })
+			.then(result => {
+		    if(result) {
+		    	console.log("The username '" + username + "' has been found.")
+		    	response.header("X-Content-Type-Options", "nosniff");
+		    	return response.jsonp({"success": result});
+		    } else {
+		    	console.log("Could not find data for username " + username);
+		    	return response.jsonp({"error": error});
+		    }
+		}).catch(err => console.log("Error with username fetch."));
+	});
 });
 
 function delete_account(username, response)
