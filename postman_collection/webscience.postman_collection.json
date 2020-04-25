@@ -1,0 +1,565 @@
+{
+	"info": {
+		"_postman_id": "ad401280-8df9-422b-b50b-f748ac559fcc",
+		"name": "webscience",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "CREATE ACCOUNT",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/account/create?username=petergramenides&password=webscience&email=gramep@rpi.edu&first_name=Peter&last_name=Gramenides&birthday=10/10/1998",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"account",
+						"create"
+					],
+					"query": [
+						{
+							"key": "username",
+							"value": "petergramenides"
+						},
+						{
+							"key": "password",
+							"value": "webscience"
+						},
+						{
+							"key": "email",
+							"value": "gramep@rpi.edu"
+						},
+						{
+							"key": "first_name",
+							"value": "Peter"
+						},
+						{
+							"key": "last_name",
+							"value": "Gramenides"
+						},
+						{
+							"key": "birthday",
+							"value": "10/10/1998"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CHANGE ACCOUNT PASSWORD",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/account/change/password?username=petergramenides&old_password=webscience&new_password=harambe",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"account",
+						"change",
+						"password"
+					],
+					"query": [
+						{
+							"key": "username",
+							"value": "petergramenides"
+						},
+						{
+							"key": "old_password",
+							"value": "webscience"
+						},
+						{
+							"key": "new_password",
+							"value": "harambe"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET ALL ACCOUNT INFO",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/account/?username=petergramenides",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"account",
+						""
+					],
+					"query": [
+						{
+							"key": "username",
+							"value": "petergramenides"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE ACCOUNT",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/account/delete?username=petergramenides&password=webscience&confirmation=delete",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"account",
+						"delete"
+					],
+					"query": [
+						{
+							"key": "username",
+							"value": "petergramenides"
+						},
+						{
+							"key": "password",
+							"value": "webscience"
+						},
+						{
+							"key": "confirmation",
+							"value": "delete"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ADD PAGE",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/pages/add?name=jaded seniors&description=the class of 2020 lmao&date=04/14/2020&owner=petergramenides",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"pages",
+						"add"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "jaded seniors"
+						},
+						{
+							"key": "description",
+							"value": "the class of 2020 lmao"
+						},
+						{
+							"key": "date",
+							"value": "04/14/2020"
+						},
+						{
+							"key": "owner",
+							"value": "petergramenides"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE PAGE",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/pages/delete?page=jaded seniors&owner=petergramenides",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"pages",
+						"delete"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "jaded seniors"
+						},
+						{
+							"key": "owner",
+							"value": "petergramenides"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ADD POST TO PAGE",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/pages/posts/add?username=petergramenides&time=123123123&date=04/14/2020&type=text&image=null&text=hey guys! I really want to graduate.&page=jaded seniors",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"pages",
+						"posts",
+						"add"
+					],
+					"query": [
+						{
+							"key": "username",
+							"value": "petergramenides"
+						},
+						{
+							"key": "time",
+							"value": "123123123"
+						},
+						{
+							"key": "date",
+							"value": "04/14/2020"
+						},
+						{
+							"key": "type",
+							"value": "text"
+						},
+						{
+							"key": "image",
+							"value": "null"
+						},
+						{
+							"key": "text",
+							"value": "hey guys! I really want to graduate."
+						},
+						{
+							"key": "page",
+							"value": "jaded seniors"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "EDIT PAGE",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/pages/edit?page=jaded seniors&current_owner=petergramenides&owner=petergramenides&name=jaded grad students?&description=a bunch of jaded grads.&date=4/24/2020",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"pages",
+						"edit"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "jaded seniors"
+						},
+						{
+							"key": "current_owner",
+							"value": "petergramenides"
+						},
+						{
+							"key": "owner",
+							"value": "petergramenides"
+						},
+						{
+							"key": "name",
+							"value": "jaded grad students?"
+						},
+						{
+							"key": "description",
+							"value": "a bunch of jaded grads."
+						},
+						{
+							"key": "date",
+							"value": "4/24/2020"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET ALL POSTS FOR PAGE",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/pages/posts?page=jaded seniors",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"pages",
+						"posts"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "jaded seniors"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE POST FROM PAGE",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/pages/posts/delete?post_id=91de718e-ec16-44ca-9946-2427d972d5cd&page=jaded seniors",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"pages",
+						"posts",
+						"delete"
+					],
+					"query": [
+						{
+							"key": "post_id",
+							"value": "91de718e-ec16-44ca-9946-2427d972d5cd"
+						},
+						{
+							"key": "page",
+							"value": "jaded seniors"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "EDIT POST IN PAGE",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/pages/posts/edit?username=petergramenides&time=123123123&date=04/14/2020&type=text&image=null&text=this is an updated post!&page=jaded seniors&post_id=f17041ef-3d04-4220-902d-8a7efd1d1265",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"pages",
+						"posts",
+						"edit"
+					],
+					"query": [
+						{
+							"key": "username",
+							"value": "petergramenides"
+						},
+						{
+							"key": "time",
+							"value": "123123123"
+						},
+						{
+							"key": "date",
+							"value": "04/14/2020"
+						},
+						{
+							"key": "type",
+							"value": "text"
+						},
+						{
+							"key": "image",
+							"value": "null"
+						},
+						{
+							"key": "text",
+							"value": "this is an updated post!"
+						},
+						{
+							"key": "page",
+							"value": "jaded seniors"
+						},
+						{
+							"key": "post_id",
+							"value": "f17041ef-3d04-4220-902d-8a7efd1d1265"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ADD LIKE TO POST",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/pages/posts/likes/add?post_id=19963357-b0a0-47e5-9e0d-3044f4b72b0d&username=yaseenmahmoud&page=jaded seniors",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"pages",
+						"posts",
+						"likes",
+						"add"
+					],
+					"query": [
+						{
+							"key": "post_id",
+							"value": "19963357-b0a0-47e5-9e0d-3044f4b72b0d"
+						},
+						{
+							"key": "username",
+							"value": "yaseenmahmoud"
+						},
+						{
+							"key": "page",
+							"value": "jaded seniors"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET ALL LIKES FROM POST",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/pages/posts/likes?post_id&page=jaded seniors",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"pages",
+						"posts",
+						"likes"
+					],
+					"query": [
+						{
+							"key": "post_id",
+							"value": null
+						},
+						{
+							"key": "page",
+							"value": "jaded seniors"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE LIKE FROM POST",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/pages/posts/likes/delete?post_id=19963357-b0a0-47e5-9e0d-3044f4b72b0d&username=yaseenmahmoud&page=jaded seniors",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"pages",
+						"posts",
+						"likes",
+						"delete"
+					],
+					"query": [
+						{
+							"key": "post_id",
+							"value": "19963357-b0a0-47e5-9e0d-3044f4b72b0d"
+						},
+						{
+							"key": "username",
+							"value": "yaseenmahmoud"
+						},
+						{
+							"key": "page",
+							"value": "jaded seniors"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET ALL PAGES AND POSTS",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/pages",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"pages"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
