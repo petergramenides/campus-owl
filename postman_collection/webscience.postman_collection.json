@@ -559,6 +559,272 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "ADD COMMENT TO POST",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/pages/posts/comments/add?post_id=bc5a27f7-ae82-45c1-8d3b-788fd055cd4f&username=danschnoll&page=jaded seniors&comment=Let's ace this project!",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"pages",
+						"posts",
+						"comments",
+						"add"
+					],
+					"query": [
+						{
+							"key": "post_id",
+							"value": "bc5a27f7-ae82-45c1-8d3b-788fd055cd4f"
+						},
+						{
+							"key": "username",
+							"value": "danschnoll"
+						},
+						{
+							"key": "page",
+							"value": "jaded seniors"
+						},
+						{
+							"key": "comment",
+							"value": "Let's ace this project!"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE COMMENT FROM POST",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/api/pages/posts/comments/delete?post_id=b0ce0e44-4168-4e39-a749-f3881add8a9a&username=danschnoll&page=jaded seniors&comment=yo me too!",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"pages",
+						"posts",
+						"comments",
+						"delete"
+					],
+					"query": [
+						{
+							"key": "post_id",
+							"value": "b0ce0e44-4168-4e39-a749-f3881add8a9a"
+						},
+						{
+							"key": "username",
+							"value": "danschnoll"
+						},
+						{
+							"key": "page",
+							"value": "jaded seniors"
+						},
+						{
+							"key": "comment",
+							"value": "yo me too!"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ADD FOLLOWER TO USER",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/account/followers/add?username=petergramenides&follower=danschnoll",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"account",
+						"followers",
+						"add"
+					],
+					"query": [
+						{
+							"key": "username",
+							"value": "petergramenides"
+						},
+						{
+							"key": "follower",
+							"value": "danschnoll"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE FOLLOWER FROM USER",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/account/followers/delete?username=petergramenides&follower=danschnoll",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"account",
+						"followers",
+						"delete"
+					],
+					"query": [
+						{
+							"key": "username",
+							"value": "petergramenides"
+						},
+						{
+							"key": "follower",
+							"value": "danschnoll"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET COMMENTS FROM POST",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/pages/posts/comments?post_id=bc5a27f7-ae82-45c1-8d3b-788fd055cd4f&page=jaded seniors",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"pages",
+						"posts",
+						"comments"
+					],
+					"query": [
+						{
+							"key": "post_id",
+							"value": "bc5a27f7-ae82-45c1-8d3b-788fd055cd4f"
+						},
+						{
+							"key": "page",
+							"value": "jaded seniors"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "LOGOUT USER",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/account/logout?session_id=700d66c3-ce52-4918-9928-2d4b903cdf4d&username=petergramenides",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"account",
+						"logout"
+					],
+					"query": [
+						{
+							"key": "session_id",
+							"value": "700d66c3-ce52-4918-9928-2d4b903cdf4d"
+						},
+						{
+							"key": "username",
+							"value": "petergramenides"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "LOGIN USER",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/account/login?username=petergramenides&password=webscience",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"account",
+						"login"
+					],
+					"query": [
+						{
+							"key": "username",
+							"value": "petergramenides"
+						},
+						{
+							"key": "password",
+							"value": "webscience"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "USER FROM SESSION_ID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/account/user?session_id=dd1ee3bf-54f7-454a-978c-771777f47102",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"account",
+						"user"
+					],
+					"query": [
+						{
+							"key": "session_id",
+							"value": "dd1ee3bf-54f7-454a-978c-771777f47102"
+						}
+					]
+				}
+			},
+			"response": []
 		}
 	],
 	"protocolProfileBehavior": {}
