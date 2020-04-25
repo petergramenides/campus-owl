@@ -27,8 +27,9 @@
     "file-system": "^2.2.2",
     "mongodb": "^3.5.5",
     "uuid": "^7.0.3",
-    "express-session": "^1.17.0"
-    "bcrypt": "^4.0.1"
+    "express-session": "^1.17.0",
+    "bcrypt": "^4.0.1",
+    "sync": "^0.2.5"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^0.900.7",
