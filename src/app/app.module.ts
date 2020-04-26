@@ -1,22 +1,22 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+
 import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 import { AppComponent } from './app.component';
-import { HeaderComponent } from "./components/header/header.component";
-import { ForumComponent } from "./components/forum/forum.component";
-import { PostComponent } from "./components/post/post.component";
-import { UserComponent } from "./components/user/user.component";
+import { NavbarComponent } from './components/navbar/navbar.component';
+import { SidenavComponent } from './components/sidenav/sidenav.component';
+import { BodyComponent } from './components/body/body.component';
 import { MaterialModule } from './material.module';
 
 
 @NgModule({
 	declarations: [
 		AppComponent,
-		HeaderComponent,
-		ForumComponent,
-		PostComponent,
-		UserComponent
+		NavbarComponent,
+		SidenavComponent,
+		BodyComponent	
 	],
 	imports: [
 		BrowserModule,
@@ -25,6 +25,6 @@ import { MaterialModule } from './material.module';
 		MaterialModule
 	],
 	providers: [],
-	bootstrap: [AppComponent],
+	bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -13,11 +13,7 @@ Moderation of this app will fall upon campus community members. In some cases it
 
 ## Configuration
 
-Setting up **Campus OWL** is very easy. Just download the files, open the repository in a bash terminal, then do
-```npm install```
-and then do the following commands in two separate bash terminals
-```ng serve``` and ```node server.js```
-This will create a development environment at localhost:4200 and localhost:3000 respectively.
+Setting up **Campus OWL** is very easy. Just download the files, open the repository in a bash terminal, and do the following commands ```npm install```, and then ```ng serve```. This will create a development environment at localhost:4200
 
 ## Credits
 
@@ -34,7 +30,7 @@ This will create a development environment at localhost:4200 and localhost:3000 
 
 ### Special Thanks
 
-Thank you to Dr. Brian Callahan, a Professor in the School of Information Technology & Web Science at [Rensselear Polytechnic Institute](https://rpi.edu) for his instruction and support that helped make this project possible.
+Thank you to Dr.Brian Callahan, a Professor in the School of Information Technology & Web Science at [Rensselear Polytechnic Institute](https://rpi.edu) for his instruction and support that helped make this project possible.
 
 ### Contact
 
