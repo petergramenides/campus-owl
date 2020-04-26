@@ -33,11 +33,11 @@ function add_page(owner, request, response)
 	page_collection.insertOne(page, (error, result) => {
         if(error) {
 			response.header("X-Content-Type-Options", "nosniff");
-			return response.jsonp({"error": "error"});
+			return response.jsonp({"error": "issue adding page to database."});
         }
         console.log('result successfully saved.');
         response.header("X-Content-Type-Options", "nosniff");
-		return response.jsonp({"success": "success"});
+		return response.jsonp({"success": "added page."});
     });
 }
 
@@ -65,13 +65,13 @@ app.post('/api/pages/add', function(request, response)
 						} else {
 							console.log("Error duplicate page exists.")
 				    		response.header("X-Content-Type-Options", "nosniff");
-							return response.jsonp({"error": "error"});
+							return response.jsonp({"error": "duplicate page exists."});
 						}
 					}).catch(error => console.log("Error adding a new page."));
 				} else {
 		    	console.log("Error finding the username.")
 		    	response.header("X-Content-Type-Options", "nosniff");
-				return response.jsonp({"error": "error"});
+				return response.jsonp({"error": "could not find matching username."});
 		    }
 		  }).catch(error => console.log("Error finding the username."));
 	});
@@ -99,17 +99,17 @@ app.delete('/api/pages/delete', function(request, response)
 				    {
 				    	console.log("Could not delete page for username " + owner);
 				    	response.header("X-Content-Type-Options", "nosniff");
-						return response.jsonp({"error": "error"});
+						return response.jsonp({"error": "could not delete page for user."});
 				    } else {
 				    	console.log("Successfully deleted page for username " + owner);
 				    	response.header("X-Content-Type-Options", "nosniff");
-						return response.jsonp({"success": "success"});
+						return response.jsonp({"success": "deleted page for user."});
 				    }
 			  });
 		    } else {
 		    	console.log("Error the owner does not match.")
 		    	response.header("X-Content-Type-Options", "nosniff");
-				return response.jsonp({"error": "error"});
+				return response.jsonp({"error": "the owner does not match."});
 		    }
 		  }).catch(error => console.log("Error finding the username."));
 	});
@@ -149,7 +149,7 @@ app.put('/api/pages/edit', function(request, response)
 				    if (err) throw err;
 				    console.log("Successfully updated the page " + page + " with new information.");
 				    response.header("X-Content-Type-Options", "nosniff");
-					return response.jsonp({"success": "success"});
+					return response.jsonp({"success": "edited page."});
 				});
 		  }).catch(error => console.log("Error finding the username."));
 	});
@@ -234,22 +234,24 @@ function account_logout(session_id, sessions, request, response)
 	);
 	console.log("Successfully logged out user " + request.query.username);
 	response.header("X-Content-Type-Options", "nosniff");
-   	return response.jsonp({"success": "success"});
+   	return response.jsonp({"success": "logged out user."});
 }
 
 // logs user out with session_id
 app.post('/api/account/logout', function(request, response)
 {
-	var session_id = String(request.query.session_id);
-	var username = String(request.query.username);
-	var sessions;
-	account_collection.findOne({ "username": username })
-		.then(account_data => {
-	    if(account_data) {
-	    	sessions = account_data.sessions;
-	    	account_logout(session_id, sessions, request, response);
-	    }
-	  }).catch(error => console.log("Error finding the username."));
+	Sync(function(){
+		var session_id = String(request.query.session_id);
+		var username = getUserInformation.sync(null, session_id);
+		var sessions;
+		account_collection.findOne({ "username": username })
+			.then(account_data => {
+		    if(account_data) {
+		    	sessions = account_data.sessions;
+		    	account_logout(session_id, sessions, request, response);
+		    }
+		  }).catch(error => console.log("Error finding the username."));
+	});
 });
 
 // logs in the user with session
@@ -284,7 +286,7 @@ app.post('/api/account/login', function(request, response)
 				    } else {
 				    	console.log("The password or confirmation was incorrect.")
 			    		response.header("X-Content-Type-Options", "nosniff");
-			    		return response.jsonp({"error": "error"});
+			    		return response.jsonp({"error": "password, username, or confirmation was incorrect"});
 				    }
 				});
 			});
@@ -322,7 +324,7 @@ app.delete('/api/pages/posts/likes/delete', function(request, response)
 		    		} all_posts[post_id].likes = updated_likes;
 		    	} else {
 		    		console.log("User " + username + " already unliked post " + post_id);
-		    		return response.jsonp({"error": "error"});
+		    		return response.jsonp({"error": "user already unliked post."});
 		    	}
 		    	  page_collection.updateOne(
 				   { "name": page },
@@ -333,10 +335,10 @@ app.delete('/api/pages/posts/likes/delete', function(request, response)
 				);
 		    	console.log(username + " successfully unliked post " + post_id + " on page " + page);
 	    		response.header("X-Content-Type-Options", "nosniff");
-				return response.jsonp({"success": "success"});
+				return response.jsonp({"success": "unliked post."});
 		    } else {
 		    	console.log("Could not find data for page " + page);
-		    	return response.jsonp({"error": "error"});
+		    	return response.jsonp({"error": "could not find data for page."});
 		    }
 		  }).catch(err => console.log(err));
 	});
@@ -364,7 +366,7 @@ app.get('/api/pages/posts/likes', function(request, response)
 			return response.jsonp({"success": all_posts[post_id].likes});
 	    } else {
 	    	console.log("Could not find data for page " + page);
-	    	return response.jsonp({"error": "error"});
+	    	return response.jsonp({"error": "could not find data for page."});
 	    }
 	  }).catch(err => console.log(err));
 	});
@@ -393,7 +395,7 @@ app.post('/api/pages/posts/likes/add', function(request, response)
 		    		all_posts[post_id].likes.push(username);
 		    	} else {
 		    		console.log("User " + username + " already liked post " + post_id);
-		    		return response.jsonp({"error": "error"});
+		    		return response.jsonp({"error": "user already liked post."});
 		    	}
 		    	  page_collection.updateOne(
 				   { "name": page },
@@ -404,10 +406,10 @@ app.post('/api/pages/posts/likes/add', function(request, response)
 				);
 		    	console.log("Successfully added like from user " + username + " to post " + post_id + " on page " + page);
 	    		response.header("X-Content-Type-Options", "nosniff");
-				return response.jsonp({"success": "success"});
+				return response.jsonp({"success": "added like."});
 		    } else {
 		    	console.log("Could not find data for page " + page);
-		    	return response.jsonp({"error": "error"});
+		    	return response.jsonp({"error": "could not find data for page."});
 		    }
 		  }).catch(err => console.log(err));
 	});
@@ -442,7 +444,7 @@ app.get('/api/pages/posts/comments', function(request, response)
 				return response.jsonp({"success": comments});
 		    } else {
 		    	console.log("Could not find data for page " + page);
-		    	return response.jsonp({"error": "error"});
+		    	return response.jsonp({"error": "could not find data for page."});
 		    }
 		  }).catch(err => console.log(err));
 	});
@@ -482,7 +484,7 @@ app.delete('/api/pages/posts/comments/delete', function(request, response)
 		    		} all_posts[post_id].comments = updated_comments;
 		    	} else {
 		    		console.log("User " + username + " already deleted comment for post " + post_id);
-		    		return response.jsonp({"error": "error"});
+		    		return response.jsonp({"error": "user already deleted comment."});
 		    	}
 
 		    	if (engagement_index > -1) {
@@ -498,10 +500,10 @@ app.delete('/api/pages/posts/comments/delete', function(request, response)
 				);
 		    	console.log(username + " successfully removed comment from post " + post_id + " on page " + page);
 	    		response.header("X-Content-Type-Options", "nosniff");
-				return response.jsonp({"success": "success"});
+				return response.jsonp({"success": "removed comment."});
 		    } else {
 		    	console.log("Could not find data for page " + page);
-		    	return response.jsonp({"error": "error"});
+		    	return response.jsonp({"error": "could not find data for page."});
 		    }
 		  }).catch(err => console.log(err));
 
@@ -538,10 +540,10 @@ app.post('/api/pages/posts/comments/add', function(request, response)
 				);
 		    	console.log("Successfully added comment from user " + username + " to post " + post_id + " on page " + page);
 	    		response.header("X-Content-Type-Options", "nosniff");
-				return response.jsonp({"success": "success"});
+				return response.jsonp({"success": "added comment."});
 		    } else {
 		    	console.log("Could not find data for page " + page);
-		    	return response.jsonp({"error": "error"});
+		    	return response.jsonp({"error": "could not find data for page."});
 		    }
 		  }).catch(err => console.log(err));
 	});
@@ -601,10 +603,10 @@ app.put('/api/pages/posts/edit', function(request, response)
 				);
 		    	console.log("Successfully deleted post from " + page);
 	    		response.header("X-Content-Type-Options", "nosniff");
-				return response.jsonp({"success": "success"});
+				return response.jsonp({"success": "deleted post."});
 		    } else {
 		    	console.log("Could not find data for page " + page);
-		    	return response.jsonp({"error": "error"});
+		    	return response.jsonp({"error": "could not find data for page."});
 		    }
 		  }).catch(err => console.log(err));
 	});
@@ -637,10 +639,10 @@ app.delete('/api/pages/posts/delete', function(request, response)
 				);
 		    	console.log("Successfully deleted post from " + page);
 	    		response.header("X-Content-Type-Options", "nosniff");
-				return response.jsonp({"success": "success"});
+				return response.jsonp({"success": "deleted post."});
 		    } else {
 		    	console.log("Could not find data for page " + page);
-		    	return response.jsonp({"error": "error"});
+		    	return response.jsonp({"error": "could not find data for page."});
 		    }
 		  }).catch(err => console.log(err));
 	});
@@ -690,11 +692,11 @@ app.post('/api/pages/posts/add', function(request, response)
 			    	{
 			    		console.log("Something went wrong adding a post.");
 			    		response.header("X-Content-Type-Options", "nosniff");
-			    		return response.jsonp({"error": "error"});
+			    		return response.jsonp({"error": "something went wrong adding a post."});
 			    	} else {
 			    		console.log("Successfully added a new post for username " + username);
 			    		response.header("X-Content-Type-Options", "nosniff");
-						return response.jsonp({"success": "success"});
+						return response.jsonp({"success": "added a new post for user."});
 			    	}
 			    });
 
@@ -783,7 +785,7 @@ app.delete('/api/account/followers/delete', function(request, response)
 	    		} followers = updated_followers;
 	    	} else {
 	    		console.log("User " + follower + " already unfollowed " + username);
-	    		return response.jsonp({"error": "error"});
+	    		return response.jsonp({"error": "user already unfollowed."});
 	    	}
 	    	  account_collection.updateOne(
 			   { "username": username },
@@ -794,10 +796,10 @@ app.delete('/api/account/followers/delete', function(request, response)
 			);
 	    	console.log(follower + " successfully unfollowed user " + username);
     		response.header("X-Content-Type-Options", "nosniff");
-			return response.jsonp({"success": "success"});
+			return response.jsonp({"success": "unfollowed user."});
 	    } else {
 	    	console.log("Could not find data for page " + page);
-	    	return response.jsonp({"error": "error"});
+	    	return response.jsonp({"error": "could not find data for page."});
 	    }
 	  }).catch(err => console.log(err));
 	});
@@ -825,7 +827,7 @@ app.post('/api/account/followers/add', function(request, response)
 	    		followers.push(follower);
 	    	} else {
 	    		console.log("User " + username + " already followed by " + follower);
-	    		return response.jsonp({"error": "error"});
+	    		return response.jsonp({"error": "user already followed."});
 	    	}
 	    	  account_collection.updateOne(
 			   { "username": username },
@@ -836,10 +838,10 @@ app.post('/api/account/followers/add', function(request, response)
 			);
 	    	console.log("Successfully added follower " + follower + " to user " + username);
     		response.header("X-Content-Type-Options", "nosniff");
-			return response.jsonp({"success": "success"});
+			return response.jsonp({"success": "added follower."});
 	    } else {
 	    	console.log("Could not find data for page " + page);
-	    	return response.jsonp({"error": "error"});
+	    	return response.jsonp({"error": "could not find data for page."});
 	    }
 	  }).catch(err => console.log(err));
 
@@ -879,11 +881,11 @@ function delete_account(username, response)
 	    {
 	    	console.log("Could not delete account with username " + username);
 	    	response.header("X-Content-Type-Options", "nosniff");
-			return response.jsonp({"error": "error"});
+			return response.jsonp({"error": "could not delete account."});
 	    } else {
 	    	console.log("Successfully deleted account with username " + username);
 	    	response.header("X-Content-Type-Options", "nosniff");
-			return response.jsonp({"success": "success"});
+			return response.jsonp({"success": "deleted account."});
 	    }
   });
 }
@@ -907,7 +909,7 @@ app.delete('/api/account/delete', function(request, response)
 			    } else {
 			    	console.log("The password or confirmation was incorrect.")
 		    		response.header("X-Content-Type-Options", "nosniff");
-		    		return response.jsonp({"error": "error"});
+		    		return response.jsonp({"error": "the password, username, or confirmation was incorrect."});
 			    }
 			});
 	    }
@@ -924,11 +926,11 @@ function change_password(username, new_password, response)
 		    	{
 		    		console.log("Something went wrong changing the password.");
 		    		response.header("X-Content-Type-Options", "nosniff");
-		    		return response.jsonp({"error": "error"});
+		    		return response.jsonp({"error": "something went wrong changing the password."});
 		    	} else {
 		    		console.log("Successfully changed the password");
 		    		response.header("X-Content-Type-Options", "nosniff");
-					return response.jsonp({"success": "success"});
+					return response.jsonp({"success": "changed password."});
 		    	}
 		    });
 		});
@@ -955,7 +957,7 @@ app.put('/api/account/change/password', function(request, response)
 			    		{
 			    			console.log("The new password is the same as the old password.");
 		    				response.header("X-Content-Type-Options", "nosniff");
-		    				return response.jsonp({"error": "error"});
+		    				return response.jsonp({"error": "the new password is the same as the old password."});
 			    		} else {
 			    			console.log("The new password is unique");
 			    			change_password(username, new_password, response);
@@ -964,7 +966,7 @@ app.put('/api/account/change/password', function(request, response)
 			    } else {
 			    	console.log("The password is incorrect.")
 		    		response.header("X-Content-Type-Options", "nosniff");
-		    		return response.jsonp({"error": "error"});
+		    		return response.jsonp({"error": "the password or username is incorrect."});
 			    }
 			});
 	    }
@@ -997,11 +999,11 @@ function create_account(request, response)
 		        if(error) {
 		        	console.log("error");
 					response.header("X-Content-Type-Options", "nosniff");
-					return response.jsonp({"error": "error"});
+					return response.jsonp({"error": "error inserting account into database."});
 		        }
 		        console.log('result successfully saved.');
 		        response.header("X-Content-Type-Options", "nosniff");
-				return response.jsonp({"success": "success"});
+				return response.jsonp({"success": "added account."});
 		    });
 	    });
 	});
@@ -1023,7 +1025,7 @@ app.post('/api/account/create', function(request, response)
 	{
 		console.log("error");
 		response.header("X-Content-Type-Options", "nosniff");
-		return response.jsonp({"error": "error"});
+		return response.jsonp({"error": "input parameters not defined."});
 	}
 
 	account_collection.findOne({ "username": username })
@@ -1031,7 +1033,7 @@ app.post('/api/account/create', function(request, response)
 	    if(result) {
 	    	console.log("The username '" + username + "' already exists.")
 	    	response.header("X-Content-Type-Options", "nosniff");
-	    	return response.jsonp({"error": "error"});
+	    	return response.jsonp({"error": "username already exists."});
 	    } else {
 	    	console.log("The username '" + username + "' is unique.");
 	    	account_collection.findOne({ "email": email })
@@ -1039,7 +1041,7 @@ app.post('/api/account/create', function(request, response)
 		    if(result) {
 		    	console.log("The email '" + email + "' already exists.")
 		    	response.header("X-Content-Type-Options", "nosniff");
-		    	return response.jsonp({"error": "error"});
+		    	return response.jsonp({"error": "email already exists."});
 		    } else {
 		    	console.log("The email '" + email + "' is unique.");
 		    	create_account(request, response);
