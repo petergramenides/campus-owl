@@ -8,10 +8,10 @@
 		{
 			"name": "CREATE ACCOUNT",
 			"request": {
-				"method": "GET",
+				"method": "POST",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:3000/api/account/create?username=petergramenides&password=webscience&email=gramep@rpi.edu&first_name=Peter&last_name=Gramenides&birthday=10/10/1998",
+					"raw": "http://localhost:3000/api/account/create?username=joedoe&password=webscience&email=joedoe@rpi.edu&first_name=Joe&last_name=Doe&birthday=01/01/2001",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -25,7 +25,7 @@
 					"query": [
 						{
 							"key": "username",
-							"value": "petergramenides"
+							"value": "joedoe"
 						},
 						{
 							"key": "password",
@@ -33,19 +33,19 @@
 						},
 						{
 							"key": "email",
-							"value": "gramep@rpi.edu"
+							"value": "joedoe@rpi.edu"
 						},
 						{
 							"key": "first_name",
-							"value": "Peter"
+							"value": "Joe"
 						},
 						{
 							"key": "last_name",
-							"value": "Gramenides"
+							"value": "Doe"
 						},
 						{
 							"key": "birthday",
-							"value": "10/10/1998"
+							"value": "01/01/2001"
 						}
 					]
 				}
@@ -55,10 +55,10 @@
 		{
 			"name": "CHANGE ACCOUNT PASSWORD",
 			"request": {
-				"method": "GET",
+				"method": "PUT",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:3000/api/account/change/password?username=petergramenides&old_password=webscience&new_password=harambe",
+					"raw": "http://localhost:3000/api/account/change/password?username=joedoe&old_password=webscience&new_password=harambe",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -73,7 +73,7 @@
 					"query": [
 						{
 							"key": "username",
-							"value": "petergramenides"
+							"value": "joedoe"
 						},
 						{
 							"key": "old_password",
@@ -118,10 +118,10 @@
 		{
 			"name": "DELETE ACCOUNT",
 			"request": {
-				"method": "GET",
+				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:3000/api/account/delete?username=petergramenides&password=webscience&confirmation=delete",
+					"raw": "http://localhost:3000/api/account/delete?username=joedoe&password=webscience&confirmation=delete",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -135,7 +135,7 @@
 					"query": [
 						{
 							"key": "username",
-							"value": "petergramenides"
+							"value": "joedoe"
 						},
 						{
 							"key": "password",
@@ -153,7 +153,7 @@
 		{
 			"name": "ADD PAGE",
 			"request": {
-				"method": "GET",
+				"method": "POST",
 				"header": [],
 				"url": {
 					"raw": "http://localhost:3000/api/pages/add?name=jaded seniors&description=the class of 2020 lmao&date=04/14/2020&session_id=ab3d6ab5-4186-4397-8563-e170fcbc41d1",
@@ -192,7 +192,7 @@
 		{
 			"name": "DELETE PAGE",
 			"request": {
-				"method": "GET",
+				"method": "DELETE",
 				"header": [],
 				"url": {
 					"raw": "http://localhost:3000/api/pages/delete?page=jaded seniors&session_id=ab3d6ab5-4186-4397-8563-e170fcbc41d1",
@@ -223,7 +223,7 @@
 		{
 			"name": "ADD POST TO PAGE",
 			"request": {
-				"method": "GET",
+				"method": "POST",
 				"header": [],
 				"url": {
 					"raw": "http://localhost:3000/api/pages/posts/add?session_id=ab3d6ab5-4186-4397-8563-e170fcbc41d1&time=123123123&date=04/14/2020&type=text&image=null&text=hey guys! I really want to graduate.&page=jaded seniors",
@@ -275,10 +275,10 @@
 		{
 			"name": "EDIT PAGE",
 			"request": {
-				"method": "GET",
+				"method": "PUT",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:3000/api/pages/edit?page=jaded seniors&session_id=dd1ee3bf-54f7-454a-978c-771777f47102&owner=petergramenides&name=jaded grad students?&description=a bunch of jaded grads.&date=4/24/2020",
+					"raw": "http://localhost:3000/api/pages/edit?page=jaded seniors&session_id=dd1ee3bf-54f7-454a-978c-771777f47102&owner=new_owner&name=jaded grad students?&description=a bunch of jaded grads.&date=4/24/2020",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -300,7 +300,7 @@
 						},
 						{
 							"key": "owner",
-							"value": "petergramenides"
+							"value": "new_owner"
 						},
 						{
 							"key": "name",
@@ -353,7 +353,7 @@
 		{
 			"name": "DELETE POST FROM PAGE",
 			"request": {
-				"method": "GET",
+				"method": "DELETE",
 				"header": [],
 				"url": {
 					"raw": "http://localhost:3000/api/pages/posts/delete?post_id=94350c10-1b25-4597-ae5f-f59fb14a428c&page=jaded seniors&session_id=ab3d6ab5-4186-4397-8563-e170fcbc41d1",
@@ -389,7 +389,7 @@
 		{
 			"name": "EDIT POST IN PAGE",
 			"request": {
-				"method": "GET",
+				"method": "PUT",
 				"header": [],
 				"url": {
 					"raw": "http://localhost:3000/api/pages/posts/edit?session_id=dd1ee3bf-54f7-454a-978c-771777f47102&time=123123123&date=04/14/2020&type=text&image=null&text=this is an updated post!&page=jaded seniors&post_id=f17041ef-3d04-4220-902d-8a7efd1d1265",
@@ -445,7 +445,7 @@
 		{
 			"name": "ADD LIKE TO POST",
 			"request": {
-				"method": "GET",
+				"method": "POST",
 				"header": [],
 				"url": {
 					"raw": "http://localhost:3000/api/pages/posts/likes/add?post_id=b2abb30c-de04-4390-9fc1-5775fd97ee1f&session_id=ab3d6ab5-4186-4397-8563-e170fcbc41d1&page=jaded seniors",
@@ -518,7 +518,7 @@
 		{
 			"name": "DELETE LIKE FROM POST",
 			"request": {
-				"method": "GET",
+				"method": "DELETE",
 				"header": [],
 				"url": {
 					"raw": "http://localhost:3000/api/pages/posts/likes/delete?post_id=b2abb30c-de04-4390-9fc1-5775fd97ee1f&session_id=ab3d6ab5-4186-4397-8563-e170fcbc41d1&page=jaded seniors",
@@ -581,7 +581,7 @@
 		{
 			"name": "ADD COMMENT TO POST",
 			"request": {
-				"method": "GET",
+				"method": "POST",
 				"header": [],
 				"url": {
 					"raw": "http://localhost:3000/api/pages/posts/comments/add?post_id=b2abb30c-de04-4390-9fc1-5775fd97ee1f&session_id=ab3d6ab5-4186-4397-8563-e170fcbc41d1&page=jaded seniors&comment=Let's ace this project!",
@@ -622,7 +622,7 @@
 		{
 			"name": "DELETE COMMENT FROM POST",
 			"request": {
-				"method": "GET",
+				"method": "DELETE",
 				"header": [],
 				"url": {
 					"raw": "localhost:3000/api/pages/posts/comments/delete?post_id=b2abb30c-de04-4390-9fc1-5775fd97ee1f&session_id=ab3d6ab5-4186-4397-8563-e170fcbc41d1&page=jaded seniors&comment=Let's ace this project!",
@@ -662,10 +662,10 @@
 		{
 			"name": "ADD FOLLOWER TO USER",
 			"request": {
-				"method": "GET",
+				"method": "POST",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:3000/api/account/followers/add?session_id=ab3d6ab5-4186-4397-8563-e170fcbc41d1&follower=yaseenmahmoud",
+					"raw": "http://localhost:3000/api/account/followers/add?session_id=ab3d6ab5-4186-4397-8563-e170fcbc41d1&follower=james_doe",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -684,7 +684,7 @@
 						},
 						{
 							"key": "follower",
-							"value": "yaseenmahmoud"
+							"value": "james_doe"
 						}
 					]
 				}
@@ -694,10 +694,10 @@
 		{
 			"name": "DELETE FOLLOWER FROM USER",
 			"request": {
-				"method": "GET",
+				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:3000/api/account/followers/delete?session_id=ab3d6ab5-4186-4397-8563-e170fcbc41d1&follower=yaseenmahmoud",
+					"raw": "http://localhost:3000/api/account/followers/delete?session_id=ab3d6ab5-4186-4397-8563-e170fcbc41d1&follower=james_doe",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -716,7 +716,7 @@
 						},
 						{
 							"key": "follower",
-							"value": "yaseenmahmoud"
+							"value": "james_doe"
 						},
 						{
 							"key": "",
@@ -767,10 +767,10 @@
 		{
 			"name": "LOGOUT USER",
 			"request": {
-				"method": "GET",
+				"method": "POST",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:3000/api/account/logout?session_id=f8801a21-2f95-4489-b922-016757fb4e05&username=petergramenides",
+					"raw": "http://localhost:3000/api/account/logout?session_id=f8801a21-2f95-4489-b922-016757fb4e05",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -785,10 +785,6 @@
 						{
 							"key": "session_id",
 							"value": "f8801a21-2f95-4489-b922-016757fb4e05"
-						},
-						{
-							"key": "username",
-							"value": "petergramenides"
 						}
 					]
 				}
@@ -798,10 +794,10 @@
 		{
 			"name": "LOGIN USER",
 			"request": {
-				"method": "GET",
+				"method": "POST",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:3000/api/account/login?username=petergramenides&password=webscience",
+					"raw": "http://localhost:3000/api/account/login?username=joedoe&password=webscience",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -815,7 +811,7 @@
 					"query": [
 						{
 							"key": "username",
-							"value": "petergramenides"
+							"value": "joedoe"
 						},
 						{
 							"key": "password",
