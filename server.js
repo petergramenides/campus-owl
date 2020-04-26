@@ -42,7 +42,7 @@ function add_page(owner, request, response)
 }
 
 // adds page to page_collection
-app.get('/api/pages/add', function(request, response)
+app.post('/api/pages/add', function(request, response)
 {
 	Sync(function(){
 		var session_id = String(request.query.session_id);
@@ -78,7 +78,7 @@ app.get('/api/pages/add', function(request, response)
 });
 
 // logs out the user with session
-app.get('/api/pages/delete', function(request, response)
+app.delete('/api/pages/delete', function(request, response)
 {
 	Sync(function(){
 		var session_id = String(request.query.session_id);
@@ -116,7 +116,7 @@ app.get('/api/pages/delete', function(request, response)
 });
 
 // edits the page information
-app.get('/api/pages/edit', function(request, response)
+app.put('/api/pages/edit', function(request, response)
 {
 	Sync(function(){
 		var session_id = String(request.query.session_id);
@@ -238,7 +238,7 @@ function account_logout(session_id, sessions, request, response)
 }
 
 // logs user out with session_id
-app.get('/api/account/logout', function(request, response)
+app.post('/api/account/logout', function(request, response)
 {
 	var session_id = String(request.query.session_id);
 	var username = String(request.query.username);
@@ -253,7 +253,7 @@ app.get('/api/account/logout', function(request, response)
 });
 
 // logs in the user with session
-app.get('/api/account/login', function(request, response)
+app.post('/api/account/login', function(request, response)
 {
 	var username = String(request.query.username);
 	var password = String(request.query.password);
@@ -293,7 +293,7 @@ app.get('/api/account/login', function(request, response)
 });
 
 // removes a like to a post
-app.get('/api/pages/posts/likes/delete', function(request, response)
+app.delete('/api/pages/posts/likes/delete', function(request, response)
 {
 	Sync(function(){
 		var session_id = String(request.query.session_id);
@@ -371,7 +371,7 @@ app.get('/api/pages/posts/likes', function(request, response)
 });
 
 // adds a like to a post
-app.get('/api/pages/posts/likes/add', function(request, response)
+app.post('/api/pages/posts/likes/add', function(request, response)
 {
 	Sync(function(){
 		var session_id = String(request.query.session_id);
@@ -449,7 +449,7 @@ app.get('/api/pages/posts/comments', function(request, response)
 });
 
 // deletes a comments
-app.get('/api/pages/posts/comments/delete', function(request, response)
+app.delete('/api/pages/posts/comments/delete', function(request, response)
 {
 	Sync(function(){
 		var session_id = String(request.query.session_id);
@@ -509,7 +509,7 @@ app.get('/api/pages/posts/comments/delete', function(request, response)
 });
 
 // adds a comment
-app.get('/api/pages/posts/comments/add', function(request, response)
+app.post('/api/pages/posts/comments/add', function(request, response)
 {
 	Sync(function(){
 		var session_id = String(request.query.session_id);
@@ -548,7 +548,7 @@ app.get('/api/pages/posts/comments/add', function(request, response)
 });
 
 // edits a post on a page
-app.get('/api/pages/posts/edit', function(request, response)
+app.put('/api/pages/posts/edit', function(request, response)
 {
 	Sync(function(){
 		var session_id = String(request.query.session_id);
@@ -611,7 +611,7 @@ app.get('/api/pages/posts/edit', function(request, response)
 });
 
 // deletes a post
-app.get('/api/pages/posts/delete', function(request, response)
+app.delete('/api/pages/posts/delete', function(request, response)
 {
 	Sync(function(){
 		var session_id = String(request.query.session_id);
@@ -647,7 +647,7 @@ app.get('/api/pages/posts/delete', function(request, response)
 });
 
 // adds a post
-app.get('/api/pages/posts/add', function(request, response)
+app.post('/api/pages/posts/add', function(request, response)
 {
 	Sync(function(){
 		var session_id = String(request.query.session_id);
@@ -755,7 +755,7 @@ app.get('/api/pages', function(request, response)
 });
 
 // deletes a follower to the user
-app.get('/api/account/followers/delete', function(request, response)
+app.delete('/api/account/followers/delete', function(request, response)
 {
 	Sync(function(){
 		var session_id = String(request.query.session_id);
@@ -804,7 +804,7 @@ app.get('/api/account/followers/delete', function(request, response)
 });
 
 // adds a follower to the user
-app.get('/api/account/followers/add', function(request, response)
+app.post('/api/account/followers/add', function(request, response)
 {
 	Sync(function(){
 		var session_id = String(request.query.session_id);
@@ -890,7 +890,7 @@ function delete_account(username, response)
 
 // deletes the account given the username, password, and
 // the word "delete"
-app.get('/api/account/delete', function(request, response)
+app.delete('/api/account/delete', function(request, response)
 {
 	console.log("Deleted a user account.");
 	var username = String(request.query.username);
@@ -936,7 +936,7 @@ function change_password(username, new_password, response)
 }
 
 // gets username, old password, new password and changes the password
-app.get('/api/account/change/password', function(request, response)
+app.put('/api/account/change/password', function(request, response)
 {
 	console.log("Changing the old password.");
 	var username = String(request.query.username);
@@ -1007,7 +1007,7 @@ function create_account(request, response)
 	});
 }
 
-app.get('/api/account/create', function(request, response)
+app.post('/api/account/create', function(request, response)
 {
 	console.log("Creating new account.");
 	var username = String(request.query.username);
