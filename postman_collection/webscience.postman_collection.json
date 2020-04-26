@@ -1,0 +1,858 @@
+{
+	"info": {
+		"_postman_id": "ad401280-8df9-422b-b50b-f748ac559fcc",
+		"name": "webscience",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "CREATE ACCOUNT",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/account/create?username=petergramenides&password=webscience&email=gramep@rpi.edu&first_name=Peter&last_name=Gramenides&birthday=10/10/1998",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"account",
+						"create"
+					],
+					"query": [
+						{
+							"key": "username",
+							"value": "petergramenides"
+						},
+						{
+							"key": "password",
+							"value": "webscience"
+						},
+						{
+							"key": "email",
+							"value": "gramep@rpi.edu"
+						},
+						{
+							"key": "first_name",
+							"value": "Peter"
+						},
+						{
+							"key": "last_name",
+							"value": "Gramenides"
+						},
+						{
+							"key": "birthday",
+							"value": "10/10/1998"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CHANGE ACCOUNT PASSWORD",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/account/change/password?username=petergramenides&old_password=webscience&new_password=harambe",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"account",
+						"change",
+						"password"
+					],
+					"query": [
+						{
+							"key": "username",
+							"value": "petergramenides"
+						},
+						{
+							"key": "old_password",
+							"value": "webscience"
+						},
+						{
+							"key": "new_password",
+							"value": "harambe"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET ALL ACCOUNT INFO",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/account/?session_id=ab3d6ab5-4186-4397-8563-e170fcbc41d1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"account",
+						""
+					],
+					"query": [
+						{
+							"key": "session_id",
+							"value": "ab3d6ab5-4186-4397-8563-e170fcbc41d1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE ACCOUNT",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/account/delete?username=petergramenides&password=webscience&confirmation=delete",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"account",
+						"delete"
+					],
+					"query": [
+						{
+							"key": "username",
+							"value": "petergramenides"
+						},
+						{
+							"key": "password",
+							"value": "webscience"
+						},
+						{
+							"key": "confirmation",
+							"value": "delete"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ADD PAGE",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/pages/add?name=jaded seniors&description=the class of 2020 lmao&date=04/14/2020&session_id=ab3d6ab5-4186-4397-8563-e170fcbc41d1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"pages",
+						"add"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "jaded seniors"
+						},
+						{
+							"key": "description",
+							"value": "the class of 2020 lmao"
+						},
+						{
+							"key": "date",
+							"value": "04/14/2020"
+						},
+						{
+							"key": "session_id",
+							"value": "ab3d6ab5-4186-4397-8563-e170fcbc41d1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE PAGE",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/pages/delete?page=jaded seniors&session_id=ab3d6ab5-4186-4397-8563-e170fcbc41d1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"pages",
+						"delete"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "jaded seniors"
+						},
+						{
+							"key": "session_id",
+							"value": "ab3d6ab5-4186-4397-8563-e170fcbc41d1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ADD POST TO PAGE",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/pages/posts/add?session_id=ab3d6ab5-4186-4397-8563-e170fcbc41d1&time=123123123&date=04/14/2020&type=text&image=null&text=hey guys! I really want to graduate.&page=jaded seniors",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"pages",
+						"posts",
+						"add"
+					],
+					"query": [
+						{
+							"key": "session_id",
+							"value": "ab3d6ab5-4186-4397-8563-e170fcbc41d1"
+						},
+						{
+							"key": "time",
+							"value": "123123123"
+						},
+						{
+							"key": "date",
+							"value": "04/14/2020"
+						},
+						{
+							"key": "type",
+							"value": "text"
+						},
+						{
+							"key": "image",
+							"value": "null"
+						},
+						{
+							"key": "text",
+							"value": "hey guys! I really want to graduate."
+						},
+						{
+							"key": "page",
+							"value": "jaded seniors"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "EDIT PAGE",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/pages/edit?page=jaded seniors&session_id=dd1ee3bf-54f7-454a-978c-771777f47102&owner=petergramenides&name=jaded grad students?&description=a bunch of jaded grads.&date=4/24/2020",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"pages",
+						"edit"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "jaded seniors"
+						},
+						{
+							"key": "session_id",
+							"value": "dd1ee3bf-54f7-454a-978c-771777f47102"
+						},
+						{
+							"key": "owner",
+							"value": "petergramenides"
+						},
+						{
+							"key": "name",
+							"value": "jaded grad students?"
+						},
+						{
+							"key": "description",
+							"value": "a bunch of jaded grads."
+						},
+						{
+							"key": "date",
+							"value": "4/24/2020"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET ALL POSTS FOR PAGE",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/pages/posts?page=jaded seniors&session_id=ab3d6ab5-4186-4397-8563-e170fcbc41d1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"pages",
+						"posts"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "jaded seniors"
+						},
+						{
+							"key": "session_id",
+							"value": "ab3d6ab5-4186-4397-8563-e170fcbc41d1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE POST FROM PAGE",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/pages/posts/delete?post_id=94350c10-1b25-4597-ae5f-f59fb14a428c&page=jaded seniors&session_id=ab3d6ab5-4186-4397-8563-e170fcbc41d1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"pages",
+						"posts",
+						"delete"
+					],
+					"query": [
+						{
+							"key": "post_id",
+							"value": "94350c10-1b25-4597-ae5f-f59fb14a428c"
+						},
+						{
+							"key": "page",
+							"value": "jaded seniors"
+						},
+						{
+							"key": "session_id",
+							"value": "ab3d6ab5-4186-4397-8563-e170fcbc41d1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "EDIT POST IN PAGE",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/pages/posts/edit?session_id=dd1ee3bf-54f7-454a-978c-771777f47102&time=123123123&date=04/14/2020&type=text&image=null&text=this is an updated post!&page=jaded seniors&post_id=f17041ef-3d04-4220-902d-8a7efd1d1265",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"pages",
+						"posts",
+						"edit"
+					],
+					"query": [
+						{
+							"key": "session_id",
+							"value": "dd1ee3bf-54f7-454a-978c-771777f47102"
+						},
+						{
+							"key": "time",
+							"value": "123123123"
+						},
+						{
+							"key": "date",
+							"value": "04/14/2020"
+						},
+						{
+							"key": "type",
+							"value": "text"
+						},
+						{
+							"key": "image",
+							"value": "null"
+						},
+						{
+							"key": "text",
+							"value": "this is an updated post!"
+						},
+						{
+							"key": "page",
+							"value": "jaded seniors"
+						},
+						{
+							"key": "post_id",
+							"value": "f17041ef-3d04-4220-902d-8a7efd1d1265"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ADD LIKE TO POST",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/pages/posts/likes/add?post_id=b2abb30c-de04-4390-9fc1-5775fd97ee1f&session_id=ab3d6ab5-4186-4397-8563-e170fcbc41d1&page=jaded seniors",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"pages",
+						"posts",
+						"likes",
+						"add"
+					],
+					"query": [
+						{
+							"key": "post_id",
+							"value": "b2abb30c-de04-4390-9fc1-5775fd97ee1f"
+						},
+						{
+							"key": "session_id",
+							"value": "ab3d6ab5-4186-4397-8563-e170fcbc41d1"
+						},
+						{
+							"key": "page",
+							"value": "jaded seniors"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET ALL LIKES FROM POST",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/pages/posts/likes?post_id=b2abb30c-de04-4390-9fc1-5775fd97ee1f&page=jaded seniors&session_id=ab3d6ab5-4186-4397-8563-e170fcbc41d1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"pages",
+						"posts",
+						"likes"
+					],
+					"query": [
+						{
+							"key": "post_id",
+							"value": "b2abb30c-de04-4390-9fc1-5775fd97ee1f"
+						},
+						{
+							"key": "page",
+							"value": "jaded seniors"
+						},
+						{
+							"key": "session_id",
+							"value": "ab3d6ab5-4186-4397-8563-e170fcbc41d1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE LIKE FROM POST",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/pages/posts/likes/delete?post_id=b2abb30c-de04-4390-9fc1-5775fd97ee1f&session_id=ab3d6ab5-4186-4397-8563-e170fcbc41d1&page=jaded seniors",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"pages",
+						"posts",
+						"likes",
+						"delete"
+					],
+					"query": [
+						{
+							"key": "post_id",
+							"value": "b2abb30c-de04-4390-9fc1-5775fd97ee1f"
+						},
+						{
+							"key": "session_id",
+							"value": "ab3d6ab5-4186-4397-8563-e170fcbc41d1"
+						},
+						{
+							"key": "page",
+							"value": "jaded seniors"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET ALL PAGES AND POSTS",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/pages?session_id=ab3d6ab5-4186-4397-8563-e170fcbc41d1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"pages"
+					],
+					"query": [
+						{
+							"key": "session_id",
+							"value": "ab3d6ab5-4186-4397-8563-e170fcbc41d1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ADD COMMENT TO POST",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/pages/posts/comments/add?post_id=b2abb30c-de04-4390-9fc1-5775fd97ee1f&session_id=ab3d6ab5-4186-4397-8563-e170fcbc41d1&page=jaded seniors&comment=Let's ace this project!",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"pages",
+						"posts",
+						"comments",
+						"add"
+					],
+					"query": [
+						{
+							"key": "post_id",
+							"value": "b2abb30c-de04-4390-9fc1-5775fd97ee1f"
+						},
+						{
+							"key": "session_id",
+							"value": "ab3d6ab5-4186-4397-8563-e170fcbc41d1"
+						},
+						{
+							"key": "page",
+							"value": "jaded seniors"
+						},
+						{
+							"key": "comment",
+							"value": "Let's ace this project!"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE COMMENT FROM POST",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/api/pages/posts/comments/delete?post_id=b2abb30c-de04-4390-9fc1-5775fd97ee1f&session_id=ab3d6ab5-4186-4397-8563-e170fcbc41d1&page=jaded seniors&comment=Let's ace this project!",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"pages",
+						"posts",
+						"comments",
+						"delete"
+					],
+					"query": [
+						{
+							"key": "post_id",
+							"value": "b2abb30c-de04-4390-9fc1-5775fd97ee1f"
+						},
+						{
+							"key": "session_id",
+							"value": "ab3d6ab5-4186-4397-8563-e170fcbc41d1"
+						},
+						{
+							"key": "page",
+							"value": "jaded seniors"
+						},
+						{
+							"key": "comment",
+							"value": "Let's ace this project!"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ADD FOLLOWER TO USER",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/account/followers/add?session_id=ab3d6ab5-4186-4397-8563-e170fcbc41d1&follower=yaseenmahmoud",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"account",
+						"followers",
+						"add"
+					],
+					"query": [
+						{
+							"key": "session_id",
+							"value": "ab3d6ab5-4186-4397-8563-e170fcbc41d1"
+						},
+						{
+							"key": "follower",
+							"value": "yaseenmahmoud"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE FOLLOWER FROM USER",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/account/followers/delete?session_id=ab3d6ab5-4186-4397-8563-e170fcbc41d1&follower=yaseenmahmoud",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"account",
+						"followers",
+						"delete"
+					],
+					"query": [
+						{
+							"key": "session_id",
+							"value": "ab3d6ab5-4186-4397-8563-e170fcbc41d1"
+						},
+						{
+							"key": "follower",
+							"value": "yaseenmahmoud"
+						},
+						{
+							"key": "",
+							"value": null,
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET COMMENTS FROM POST",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/pages/posts/comments?post_id=b2abb30c-de04-4390-9fc1-5775fd97ee1f&page=jaded seniors&session_id=ab3d6ab5-4186-4397-8563-e170fcbc41d1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"pages",
+						"posts",
+						"comments"
+					],
+					"query": [
+						{
+							"key": "post_id",
+							"value": "b2abb30c-de04-4390-9fc1-5775fd97ee1f"
+						},
+						{
+							"key": "page",
+							"value": "jaded seniors"
+						},
+						{
+							"key": "session_id",
+							"value": "ab3d6ab5-4186-4397-8563-e170fcbc41d1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "LOGOUT USER",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/account/logout?session_id=f8801a21-2f95-4489-b922-016757fb4e05&username=petergramenides",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"account",
+						"logout"
+					],
+					"query": [
+						{
+							"key": "session_id",
+							"value": "f8801a21-2f95-4489-b922-016757fb4e05"
+						},
+						{
+							"key": "username",
+							"value": "petergramenides"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "LOGIN USER",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/account/login?username=petergramenides&password=webscience",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"account",
+						"login"
+					],
+					"query": [
+						{
+							"key": "username",
+							"value": "petergramenides"
+						},
+						{
+							"key": "password",
+							"value": "webscience"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "USER FROM SESSION_ID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/account/user?session_id=f8801a21-2f95-4489-b922-016757fb4e05",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"account",
+						"user"
+					],
+					"query": [
+						{
+							"key": "session_id",
+							"value": "f8801a21-2f95-4489-b922-016757fb4e05"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
