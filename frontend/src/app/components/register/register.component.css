@@ -1,6 +1,7 @@
 .hero-body{
-    background-size: cover;
+    background-image: url('../../../assets/img/VCC.jpeg') !important;
     background-position: center center;
+    background-size: 100% 100%;
     min-height: 100%;
     min-width: 1024px;
       
@@ -13,7 +14,6 @@
     top: 0;
     left: 0;
 }
-
 .card{
     margin: 0 auto;
     padding: 20px;
