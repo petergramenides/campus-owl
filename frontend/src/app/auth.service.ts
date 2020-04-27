@@ -14,6 +14,12 @@ export class AuthService {
 	) { }
 
 	login(model : any){
-		return this.http.post('api/account/login', model);
+		console.log("AuthService: Model is", model.value);
+		return this.http.post('api/account/login', model.value);
+	}
+
+	register(model : any){
+		console.log("AuthService register(): Model is", model.value);
+		return this.http.post('api/account/create', model.value);
 	}
 }

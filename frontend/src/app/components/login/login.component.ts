@@ -9,7 +9,6 @@ import { FormBuilder } from '@angular/forms';
 	styleUrls: ["./login.component.css"],
 })
 export class LoginComponent implements OnInit {
-	model: any = {};
 	loginForm;
 
 	constructor(
@@ -18,7 +17,7 @@ export class LoginComponent implements OnInit {
 		private formBuilder: FormBuilder
 	) {
 		this.loginForm = this.formBuilder.group({
-			email: '',
+			username: '',
 			password: ''
 		});
 	}
@@ -26,7 +25,8 @@ export class LoginComponent implements OnInit {
 	ngOnInit(): void { }
 
 	login() { 
-		this.authService.login(this.model).subscribe(
+		console.log("LOGIN: Submitted the following...", this.loginForm.value);
+		this.authService.login(this.loginForm).subscribe(
 			next => {
 				this.router.navigate(['/home']);
 			},
