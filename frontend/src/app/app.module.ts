@@ -9,6 +9,7 @@ import { PostComponent } from "./components/post/post.component";
 import { UserComponent } from "./components/user/user.component";
 import { MaterialModule } from './material.module';
 import { FormsModule, ReactiveFormsModule, FormBuilder } from '@angular/forms';
+import { LoginComponent } from './components/login/login.component';
 
 
 @NgModule({
@@ -16,6 +17,7 @@ import { FormsModule, ReactiveFormsModule, FormBuilder } from '@angular/forms';
 		AppComponent,
 		HeaderComponent,
 		ForumComponent,
+		LoginComponent,
 		PostComponent,
 		UserComponent
 	],
