@@ -8,6 +8,7 @@ import { ForumComponent } from "./components/forum/forum.component";
 import { PostComponent } from "./components/post/post.component";
 import { UserComponent } from "./components/user/user.component";
 import { MaterialModule } from './material.module';
+import { FormsModule, ReactiveFormsModule, FormBuilder } from '@angular/forms';
 
 
 @NgModule({
@@ -22,7 +23,9 @@ import { MaterialModule } from './material.module';
 		BrowserModule,
 		AppRoutingModule,
 		BrowserAnimationsModule,
-		MaterialModule
+		MaterialModule,
+		FormsModule,
+		ReactiveFormsModule
 	],
 	providers: [],
 	bootstrap: [AppComponent],
