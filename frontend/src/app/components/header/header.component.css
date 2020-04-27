@@ -1,0 +1,20 @@
+.navbar{
+    background-color: #d6001c;
+}
+.brand{
+    filter: brightness(0) invert(1);
+}
+
+a{
+    color: white;
+}
+
+a:hover{
+    background-color: #9ea2a2;
+    color: white;
+}
+
+a:active{
+    background-color: #54585a;
+    color: white;
+}
