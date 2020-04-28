@@ -15,7 +15,6 @@ import { PostComponent } from './post/post.component';
 import { PostcreateComponent } from './postcreate/postcreate.component';
 import { PagecreateComponent } from './pagecreate/pagecreate.component';
 import { PageComponent } from './page/page.component';
-import { IndexComponent } from './index/index.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +27,6 @@ import { IndexComponent } from './index/index.component';
     PostcreateComponent,
     PagecreateComponent,
     PageComponent,
-    IndexComponent,
   ],
   imports: [
     BrowserModule,
