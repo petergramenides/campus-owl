@@ -26,6 +26,9 @@
 					<a *ngIf="!this.loggedIn()" class="button is-light" routerLink="/login">
 						Log In
 					</a>
+					<a *ngIf="this.loggedIn()" class="button is-primary" routerLink="/createPage">
+						Create Page
+					</a>
 					<a *ngIf="this.loggedIn()" class="button is-light" (click)="logout()">
 						Log Out
 					</a>
