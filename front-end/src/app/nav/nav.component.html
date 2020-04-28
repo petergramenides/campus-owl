@@ -1,6 +1,9 @@
 <nav class="navbar" role="navigation" aria-label="main navigation">
 	<div class="navbar-brand">
-	  <a class="navbar-item" href="/">
+		<a *ngIf="!this.loggedIn()" class="navbar-item" href="/">
+			<img class="brand" src="https://image.flaticon.com/icons/png/512/12/12426.png" width="30">
+		  </a>
+	  <a *ngIf="this.loggedIn()" class="navbar-item" href="/home">
 		<img class="brand" src="https://image.flaticon.com/icons/png/512/12/12426.png" width="30">
 	  </a>
 	  <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false"
