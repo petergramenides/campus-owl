@@ -11,6 +11,10 @@ import { MaterialModule } from "./material-module";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { HttpClientModule } from "@angular/common/http";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { PostComponent } from './post/post.component';
+import { PostcreateComponent } from './postcreate/postcreate.component';
+import { PagecreateComponent } from './pagecreate/pagecreate.component';
+import { PageComponent } from './page/page.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +23,10 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
     LoginComponent,
     RegisterComponent,
     HomeComponent,
+    PostComponent,
+    PostcreateComponent,
+    PagecreateComponent,
+    PageComponent,
   ],
   imports: [
     BrowserModule,

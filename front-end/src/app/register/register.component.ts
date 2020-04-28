@@ -36,7 +36,7 @@ export class RegisterComponent implements OnInit {
 				this.router.navigate(['/login']);
 			},
 			error =>{
-				throw new Error("ERROR: Register failed");
+				throw new Error("ERROR: Register failed.");
 			}
 		);
 	}

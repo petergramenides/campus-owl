@@ -1,16 +1,30 @@
 .hero-body {
-  background-image: url("https://i.imgur.com/CHvf9eh.jpg") !important;
-  background-position: center center;
-  background-size: 100% 100%;
-  min-height: 100%;
-  min-width: 1024px;
+	background-image: url("https://i.imgur.com/CHvf9eh.jpg") !important;
+	background-position: center center;
+	background-size: 100% 100%;
+	background-attachment: fixed;
+}
 
-  /* Set up proportionate scaling */
-  width: 100%;
-  height: auto;
+.view-item{
+	background-color: hsl(204, 86%, 53%);
+	color:white;
+}
+.view-item:hover{
+	color:black;
+}
 
-  /* Set up positioning */
-  position: fixed;
-  top: 0;
-  left: 0;
+.delete-item{
+	background-color: #f14668;
+	color: white;
+}
+.delete-item:hover{
+	color: black;
+}
+
+.edit-item{
+	background-color: hsl(48, 100%, 67%);
+	color: black;
+}
+.edit-item:hover{
+	color: white
 }

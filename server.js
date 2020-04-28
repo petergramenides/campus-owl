@@ -17,7 +17,7 @@ const saltRounds = 10;
 
 function add_page(owner, request, response)
 {
-	var name = String(request.query.name);
+	var name = String(request.body.name);
 	var description = String(request.query.description);
 	var date = String(request.query.date);
 
@@ -257,8 +257,8 @@ app.post('/api/account/logout', function(request, response)
 // logs in the user with session
 app.post('/api/account/login', function(request, response)
 {
-	var username = String(request.query.username);
-	var password = String(request.query.password);
+	var username = String(request.body.username);
+	var password = String(request.body.password);
 
 	account_collection.findOne({ "username": username })
 		.then(account_data => {
@@ -281,7 +281,7 @@ app.post('/api/account/login', function(request, response)
 							);
 					    	console.log("Successfully logged in " + username + " with new session.");
 					    	response.header("X-Content-Type-Options", "nosniff");
-				    		return response.jsonp({"success": session_id});
+				    		return response.jsonp({"success": session_id, "username":username});
 						});
 				    } else {
 				    	console.log("The password or confirmation was incorrect.")
@@ -852,7 +852,7 @@ app.post('/api/account/followers/add', function(request, response)
 app.get('/api/account', function(request, response)
 {
 	Sync(function(){
-		var session_id = String(request.query.session_id);
+		var session_id = String(request.body.session_id);
 		var username = getUserInformation.sync(null, session_id);
 		if (username == undefined)
 		{
@@ -895,9 +895,9 @@ function delete_account(username, response)
 app.delete('/api/account/delete', function(request, response)
 {
 	console.log("Deleted a user account.");
-	var username = String(request.query.username);
-	var password = String(request.query.password);
-	var confirmation = String(request.query.confirmation);
+	var username = String(request.body.username);
+	var password = String(request.body.password);
+	var confirmation = String(request.body.confirmation);
 	account_collection.findOne({ "username": username })
 		.then(account_data => {
 	    if(account_data) {
@@ -941,9 +941,9 @@ function change_password(username, new_password, response)
 app.put('/api/account/change/password', function(request, response)
 {
 	console.log("Changing the old password.");
-	var username = String(request.query.username);
-	var old_password = String(request.query.old_password);
-	var new_password = String(request.query.new_password);
+	var username = String(request.body.username);
+	var old_password = String(request.body.old_password);
+	var new_password = String(request.body.new_password);
 
 	account_collection.findOne({ "username": username })
 		.then(account_data => {
@@ -975,12 +975,12 @@ app.put('/api/account/change/password', function(request, response)
 
 function create_account(request, response)
 {
-	var username = String(request.query.username);
-	var password = String(request.query.password);
-	var email = String(request.query.email);
-	var first_name = String(request.query.first_name);
-	var last_name = String(request.query.last_name);
-	var birthday = String(request.query.birthday);
+	var username = String(request.body.username);
+	var password = String(request.body.password);
+	var email = String(request.body.email);
+	var first_name = String(request.body.first_name);
+	var last_name = String(request.body.last_name);
+	var birthday = String(request.body.birthday);
 
 	bcrypt.genSalt(saltRounds, function(error, salt) {
 	    bcrypt.hash(password, salt, function(error, hash) {
@@ -1012,12 +1012,12 @@ function create_account(request, response)
 app.post('/api/account/create', function(request, response)
 {
 	console.log("Creating new account.");
-	var username = String(request.query.username);
-	var password = String(request.query.password);
-	var email = String(request.query.email);
-	var first_name = String(request.query.first_name);
-	var last_name = String(request.query.last_name);
-	var birthday = String(request.query.birthday);
+	var username = String(request.body.username);
+	var password = String(request.body.password);
+	var email = String(request.body.email);
+	var first_name = String(request.body.first_name);
+	var last_name = String(request.body.last_name);
+	var birthday = String(request.body.birthday);
 
 	if (typeof username === "undefined" || typeof password === "undefined"
 		|| typeof email === "undefined" || typeof first_name === "undefined"

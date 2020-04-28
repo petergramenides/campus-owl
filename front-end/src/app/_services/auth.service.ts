@@ -16,7 +16,7 @@ export class AuthService {
 
 	loggedIn(){
 		const token = localStorage.getItem('token');
-		return token;
+		return token ? true : false;
 	}
 
 	login(model: any) {

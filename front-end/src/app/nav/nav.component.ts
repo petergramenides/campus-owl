@@ -11,16 +11,15 @@ export class NavComponent implements OnInit {
 	navTitle: string;
 
 	constructor(
-		private router: Router,
+		public router: Router,
 		private authService: AuthService,
 		
 	){ 
-		this.navTitle ="Welcome to CampusOWL";
+		this.navTitle ="CampusOWL";
 	}
 
 	ngOnInit(): void {
 	}
-
 
 	loggedIn() {
 		if (this.authService.loggedIn()){
@@ -31,7 +30,7 @@ export class NavComponent implements OnInit {
 
 	logout(){
 		console.log("Logging out...");
-		this.navTitle ="Welcome to CampusOWL";
+		this.navTitle ="CampusOWL";
 		this.authService.logout();
 	}
 }
