@@ -3,6 +3,7 @@ import { Router } from "@angular/router";
 import { HttpClient } from "@angular/common/http";
 import { map, timeout } from "rxjs/operators";
 import { analyzeAndValidateNgModules } from '@angular/compiler';
+import { NgModel } from '@angular/forms';
 
 
 @Injectable({
@@ -28,5 +29,9 @@ export class PageService {
 		let session_id = localStorage.getItem('token');
 		console.log("PageService: Session ID is", session_id);
 		return this.http.get('api/pages');
+	}
+
+	getPosts(id : any){
+		return this.http.get('api/pages/posts/'+id);
 	}
 }

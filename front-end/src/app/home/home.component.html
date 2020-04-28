@@ -1,3 +1,4 @@
+<br/>
 <section class="hero is-danger is-bold is-fullheight">
 	<div class="hero-body">
 		<div class="container">
@@ -21,9 +22,12 @@
 						</div>
 					</div>
 					<footer class="card-footer">
-						<a href="#" class="card-footer-item">View Posts</a>
-						<a href="#" class="card-footer-item">Edit</a>
-						<a href="#" class="card-footer-item">Delete</a>
+						<a href="#" *ngIf="isPageOwner(page.owner)" class="card-footer-item edit-item">Edit</a>
+						<span href="#" *ngIf="!isPageOwner(page.owner)" class="card-footer-item"></span>
+						<a [routerLink]="['/page', page._id]" [state]="{'data':page._id}" class="card-footer-item view-item">View Posts</a>
+						<a href="#" *ngIf="isPageOwner(page.owner)" class="card-footer-item delete-item">Delete</a>
+						<span href="#" *ngIf="!isPageOwner(page.owner)" class="card-footer-item"></span>
+
 					</footer>
 				</div>
 				<br />

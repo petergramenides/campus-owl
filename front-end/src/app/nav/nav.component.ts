@@ -11,7 +11,7 @@ export class NavComponent implements OnInit {
 	navTitle: string;
 
 	constructor(
-		private router: Router,
+		public router: Router,
 		private authService: AuthService,
 		
 	){ 
@@ -20,7 +20,6 @@ export class NavComponent implements OnInit {
 
 	ngOnInit(): void {
 	}
-
 
 	loggedIn() {
 		if (this.authService.loggedIn()){

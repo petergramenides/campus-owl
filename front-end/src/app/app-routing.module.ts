@@ -6,6 +6,7 @@ import { HomeComponent } from "./home/home.component";
 import { PostcreateComponent } from "./postcreate/postcreate.component";
 import { AuthGuard } from "../app/_guards/auth.guard"
 import { PagecreateComponent } from './pagecreate/pagecreate.component';
+import { PageComponent } from './page/page.component';
 
 const routes: Routes = [
 	{ path: "login", component: LoginComponent },
@@ -18,12 +19,14 @@ const routes: Routes = [
 		canActivate: [AuthGuard],
 		children: [
 			{ path: "", component: HomeComponent },
-			{ path: "createPage", component: PagecreateComponent }
+			{ path: "createPage", component: PagecreateComponent },
+			{ path: "page/:id", component: PageComponent},
+			{ path: "createPost", component: PostcreateComponent }
 		],
 	},
 
-	// Routes that are invalid will redirect to an invalid page
-	//{ path: "**", redirectTo: "" },
+	// Routes that are invalid will redirect back to the home page
+	{ path: "**", redirectTo: "" },
 	
 ];
 

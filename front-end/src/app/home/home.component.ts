@@ -31,4 +31,8 @@ export class HomeComponent implements OnInit {
 			}
 		)
 	}
+
+	isPageOwner(pageOwner : any){
+		return pageOwner === localStorage.getItem('username');
+	}
 }

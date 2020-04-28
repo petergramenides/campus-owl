@@ -26,7 +26,10 @@
 					<a *ngIf="!this.loggedIn()" class="button is-light" routerLink="/login">
 						Log In
 					</a>
-					<a *ngIf="this.loggedIn()" class="button is-primary" routerLink="/createPage">
+					<a *ngIf="this.router.url.includes('/page')" class="button is-primary" routerLink="/createPost">
+						Create Post
+					</a>
+					<a *ngIf="this.loggedIn() && !this.router.url.includes('/page')" class="button is-primary" routerLink="/createPage">
 						Create Page
 					</a>
 					<a *ngIf="this.loggedIn()" class="button is-light" (click)="logout()">

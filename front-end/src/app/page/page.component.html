@@ -1,1 +1,32 @@
-<p>page works!</p>
+<br/>
+<section class="hero is-danger is-bold is-fullheight">
+	<div class="hero-body">
+		<div class="container">
+			<div *ngFor="let post of postArr" class="row">
+				<div class="card">
+					<header class="card-header">
+						<p class="card-header-title">
+							{{post.name}}
+						</p>
+						<a href="#" class="card-header-icon" aria-label="more options">
+							<span class="icon">
+								<i class="fas fa-angle-down" aria-hidden="true"></i>
+							</span>
+						</a>
+					</header>
+					<div class="card-content">
+						<div class="content">
+							{{post.description}}
+							<br />
+							<time style="float: right;">{{post.date | date}}</time>
+						</div>
+					</div>
+					<footer class="card-footer">
+
+					</footer>
+				</div>
+				<br />
+			</div>
+		</div>
+	</div>
+</section>
