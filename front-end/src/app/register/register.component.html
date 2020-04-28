@@ -1,0 +1,66 @@
+<section class="hero is-primary is-bold is-fullheight">
+  <div class="hero-body">
+    <div class="container">
+      <div class="columns is-centered">
+        <div class="box column is-5-tablet is-5-desktop is-4-widescreen">
+          <form [formGroup]="registerForm" (ngSubmit)="register()">
+            <div class="field">
+              <label class="label">First and Last Name</label>
+              <div class="control">
+                <input type="text" placeholder="First Name" class="input" formControlName="first_name" required
+                  style="width: 45%; float: left;" />
+                <input type="text" placeholder="Last Name" class="input" formControlName="last_name" required
+                  style="width: 45%; float: right;" />
+              </div>
+            </div>
+
+            <div class="field">
+              <label class="label">Username</label>
+              <div class="control">
+                <input type="text" placeholder="Username" class="input" formControlName="username" required />
+              </div>
+            </div>
+
+            <div class="field">
+              <label class="label">Email</label>
+              <div class="control">
+                <input type="email" placeholder="your_rcsid@rpi.edu" class="input" formControlName="email" required />
+              </div>
+            </div>
+
+            <div class="field">
+              <label class="label">Password</label>
+              <div class="control">
+                <input type="email" placeholder="********" class="input" formControlName="password" required />
+              </div>
+            </div>
+
+            <div class="field">
+              <label class="label">Date of Birth</label>
+              <div class="control">
+                <input type="date" placeholder="01/01/1970" class="input" formControlName="dob" required />
+              </div>
+            </div>
+
+            <div class="field">
+              <div class="control">
+                <label class="checkbox">
+                  <input type="checkbox" />
+                  I agree to the <a href="#">terms and conditions</a>
+                </label>
+              </div>
+            </div>
+
+            <div class="field">
+              <div class="control">
+                <button class="button is-success" [disabled]="!registerForm.valid">
+                  Submit
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

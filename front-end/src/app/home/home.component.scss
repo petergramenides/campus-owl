@@ -1,0 +1,30 @@
+.hero-body {
+	background-image: url("../../assets/img/rpi.jpeg") !important;
+	background-position: center center;
+	background-size: 100% 100%;
+	background-attachment: fixed;
+}
+
+.view-item{
+	background-color: hsl(204, 86%, 53%);
+	color:white;
+}
+.view-item:hover{
+	color:black;
+}
+
+.delete-item{
+	background-color: #f14668;
+	color: white;
+}
+.delete-item:hover{
+	color: black;
+}
+
+.edit-item{
+	background-color: hsl(48, 100%, 67%);
+	color: black;
+}
+.edit-item:hover{
+	color: white
+}

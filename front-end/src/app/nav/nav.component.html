@@ -1,0 +1,40 @@
+<nav class="navbar" role="navigation" aria-label="main navigation">
+	<div class="navbar-brand">
+	  <a class="navbar-item" href="/">
+		<img class="brand" src="https://image.flaticon.com/icons/png/512/12/12426.png" width="30">
+	  </a>
+	  <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false"
+		data-target="navbarBasicExample">
+		<span aria-hidden="true"></span>
+	  </a>
+	</div>
+  
+
+	<div id="navbarBasicExample" class="navbar-menu">
+		<div class="navbar-start">
+			<span class="brand-logo">{{this.navTitle}}</span>
+		</div>
+
+		<div class="navbar-end">
+			<div class="navbar-item">
+				<div class="buttons">
+					<a *ngIf="!this.loggedIn()" class="button is-primary" routerLink="/register">
+						<strong>Sign Up</strong>
+					</a>
+					<a *ngIf="!this.loggedIn()" class="button is-light" routerLink="/login">
+						Log In
+					</a>
+					<a *ngIf="this.router.url.includes('/page')" class="button is-primary" routerLink="/createPost">
+						Create Post
+					</a>
+					<a *ngIf="this.loggedIn() && !this.router.url.includes('/page')" class="button is-primary" routerLink="/createPage">
+						Create Page
+					</a>
+					<a *ngIf="this.loggedIn()" class="button is-light" (click)="logout()">
+						Log Out
+					</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</nav>

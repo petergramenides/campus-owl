@@ -1,0 +1,62 @@
+<section class="hero is-danger is-bold is-fullheight">
+	<div class="hero-body">
+		<div class="container">
+			<div class="card">
+				<div class="card-content">
+                    <h3>Pages are where you share details about your campus event, notice, or poster! Create a Page to get started!</h3>
+					<form [formGroup]="pageCreateForm" (ngSubmit)="createPage()">
+						<div class="field">
+							<label class="label">Page/Event Name</label>
+							<div class="control">
+								<input
+									type="text"
+									placeholder="Page/Event Name"
+									class="input"
+									formControlName="pageName"
+									required
+								/>
+							</div>
+						</div>
+
+						<div class="field">
+							<label class="label">Description</label>
+							<div class="control">
+								<input
+									type="text"
+									placeholder="Tell us what your event is about!"
+									class="input"
+									formControlName="description"
+									required
+								/>
+							</div>
+                        </div>
+                        
+						<div class="field">
+							<label class="label">Event Date</label>
+							<div class="control">
+								<input
+									type="date"
+									placeholder="01/01/1970"
+									class="input"
+									formControlName="date"
+									required
+								/>
+							</div>
+						</div>
+
+						<div class="field">
+							<div class="control">
+								<button
+									class="button is-success"
+									[disabled]="!pageCreateForm.valid"
+								>
+									Submit
+								</button>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
