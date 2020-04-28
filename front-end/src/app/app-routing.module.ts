@@ -7,8 +7,10 @@ import { PostcreateComponent } from "./postcreate/postcreate.component";
 import { AuthGuard } from "../app/_guards/auth.guard"
 import { PagecreateComponent } from './pagecreate/pagecreate.component';
 import { PageComponent } from './page/page.component';
+import { IndexComponent } from "./index/index.component";
 
 const routes: Routes = [
+	{ path: "", component: IndexComponent },
 	{ path: "login", component: LoginComponent },
 	{ path: "register", component: RegisterComponent },
 
@@ -18,7 +20,7 @@ const routes: Routes = [
 		runGuardsAndResolvers: 'always',
 		canActivate: [AuthGuard],
 		children: [
-			{ path: "", component: HomeComponent },
+			{ path: "home", component: HomeComponent },
 			{ path: "createPage", component: PagecreateComponent },
 			{ path: "page/:id", component: PageComponent},
 			{ path: "createPost", component: PostcreateComponent }
